@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Création & Animation 3D | Salaou Souleyman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #8b5cf6;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--darker);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .bg-grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .menu-item {
+      position: relative;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover::after {
+      width: 100%;
+    }
+    
+    .content-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .content-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    
+    .content-card:hover::before {
+      transform: translateX(100%);
+    }
+    
+    .video-thumbnail {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      height: 200px;
+      background: linear-gradient(45deg, #1e3a8a, #3730a3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    
+    .video-thumbnail::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      transition: background 0.3s ease;
+    }
+    
+    .video-thumbnail:hover::after {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(59, 130, 246, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    
+    .video-thumbnail:hover .play-button {
+      background: rgba(59, 130, 246, 1);
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .process-step {
+      position: relative;
+      padding-left: 40px;
+    }
+    
+    .process-step::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    
+    .process-step:nth-child(1)::before { content: '1'; }
+    .process-step:nth-child(2)::before { content: '2'; }
+    .process-step:nth-child(3)::before { content: '3'; }
+    .process-step:nth-child(4)::before { content: '4'; }
+    
+    /* Styles pour la nouvelle galerie de vidéos */
+    .my-video-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    
+    .my-video-item {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .my-video-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .my-video-preview {
+      position: relative;
+      height: 180px;
+      overflow: hidden;
+    }
+    
+    .my-video-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .my-video-item:hover .my-video-preview img {
+      transform: scale(1.05);
+    }
+    
+    .my-video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .my-video-item:hover .my-video-overlay {
+      opacity: 1;
+    }
+    
+    .my-video-info {
+      padding: 16px;
+    }
+    
+    .my-video-category {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .my-video-category.motivation {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+    
+    .my-video-category.animation {
+      background: rgba(139, 92, 246, 0.2);
+      color: #a78bfa;
+    }
+    
+    .my-video-category.cuisine {
+      background: rgba(161, 241, 13, 0.648);
+      color: #f4f408;
+    }
+
+    .my-video-category.cars {
+      background: rgba(239, 68, 68, 0.2);
+      color: #f87171;
+    }
+    
+    .my-video-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+    
+    .my-video-description {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    
+    .my-video-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #64748b;
+    }
+    
+    /* Modal vidéo */
+    .my-video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .my-video-modal.active {
+      display: flex;
+    }
+    
+    .my-modal-content {
+      width: 90%;
+      max-width: 900px;
+      background: rgba(30, 41, 59, 0.95);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .my-modal-header {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .my-modal-body {
+      padding: 0;
+    }
+    
+    .my-modal-video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+    }
+    
+    .my-modal-video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    
+    .my-close-modal {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    
+    .my-close-modal:hover {
+      color: white;
+    }
+    
+    /* Filtres de vidéos */
+    .my-video-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    
+    .my-filter-btn {
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .my-filter-btn:hover {
+      background: rgba(59, 130, 246, 0.1);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    
+    .my-filter-btn.active {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+    
+    @media (max-width: 768px) {
+      .video-thumbnail {
+        height: 150px;
+      }
+      
+      .play-button {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .my-video-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .my-video-filters {
+        justify-content: center;
+      }
+    }
+
+    /* TOGGLE STYLÉ EN BAS À DROITE */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+}
+
+.dark-mode .theme-toggle {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  color: white;
+  animation: pulse-dark 3s infinite;
+}
+
+.light-mode .theme-toggle {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+  color: white;
+  animation: pulse-light 3s infinite;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse-dark {
+  0%, 100% { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5); }
+}
+
+@keyframes pulse-light {
+  0%, 100% { box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(251, 191, 36, 0.5); }
+}
+
+/* Tooltip sur hover */
+.theme-toggle::after {
+  content: 'Changer de thème';
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-toggle:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+  
+  .theme-toggle::after {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+}
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 overflow-x-hidden">
+    
+    
+    <!-- Modal pour afficher les vidéos -->
+    <div id="my-video-modal" class="my-video-modal">
+      <div class="my-modal-content">
+        <div class="my-modal-header">
+          <h3 id="my-modal-title" class="text-xl font-bold">Titre de la vidéo</h3>
+          <button class="my-close-modal" id="my-close-modal">&times;</button>
+        </div>
+        <div class="my-modal-body">
+          <div class="my-modal-video-container">
+            <iframe id="my-modal-video" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 w-full h-16 bg-gray-900/90 backdrop-blur-lg z-50 border-b border-gray-800">
+    <div class="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold tracking-tight">
+        <span class="gradient-text">Salaou Souleyman</span>
+      </a>
+      
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a href="index.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Accueil</a>
+        <a href="cv.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">CV</a>
+        <a href="skills.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Compétences</a>
+        <a href="content.html" class="menu-item px-4 py-2 text-sm font-medium text-blue-400 hover:text-blue-300">Création</a>
+        <a href="agriculture.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Agriculture</a>
+        <a href="projects.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Projets</a>
+        <a href="contact.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Contact</a>
+      </nav>
+      
+      <!-- Menu Mobile Toggle -->
+      <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 backdrop-blur-lg border-b border-gray-800 hidden">
+      <div class="flex flex-col py-4">
+        <a href="index.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Accueil</a>
+        <a href="cv.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">CV</a>
+        <a href="skills.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Compétences</a>
+        <a href="content.html" class="px-6 py-3 text-blue-400 hover:text-blue-300 hover:bg-gray-800/50">Création</a>
+        <a href="agriculture.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Agriculture</a>
+        <a href="projects.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Projets</a>
+        <a href="contact.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-20">
+    <div class="container mx-auto px-4 md:px-8">
+      <!-- Hero Section -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-8">
+            <span class="inline-block px-4 py-1 bg-gray-800/50 backdrop-blur rounded-full text-sm text-blue-300 border border-gray-700">
+              Storytelling Visuel & Animation
+            </span>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">Création & Animation 3D</span>
+          </h1>
+          
+          <p class="text-gray-400 text-lg max-w-3xl">
+            Je transforme des idées en expériences visuelles captivantes grâce à l'animation 3D, 
+            la narration créative et la production de contenu digital engageant.
+          </p>
+        </div>
+      </section>
+
+      <!-- Content Creation Overview -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="fade-in">
+              <div class="card-hover content-card p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-video text-blue-400 text-xl"></i>
+                  </div>
+                  <h2 class="text-2xl font-bold">Création de Contenu Digital</h2>
+                </div>
+                
+                <p class="text-gray-400 mb-6">
+                  Production de vidéos percutantes pour les réseaux sociaux, avec un accent sur 
+                  le storytelling, l'engagement et l'optimisation pour chaque plateforme.
+                </p>
+                
+                <div class="space-y-4">
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Vidéos motivationnelles & mindset</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Contenus éducatifs & tutoriels</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Montage vidéo dynamique</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Optimisation pour l'engagement</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="fade-in">
+              <div class="card-hover content-card p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <div class="flex items-center mb-6">
+                  <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-cube text-purple-400 text-xl"></i>
+                  </div>
+                  <h2 class="text-2xl font-bold">Animation 3D & Modélisation</h2>
+                </div>
+                
+                <p class="text-gray-400 mb-6">
+                  Création d'univers visuels immersifs, de personnages expressifs et d'animations 
+                  fluides pour raconter des histoires et transmettre des messages complexes.
+                </p>
+                
+                <div class="space-y-4">
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Modélisation 3D de personnages</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Animation & rigging</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Création de décors & environnements</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Rendu & post-production</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Video Content Creation -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Création de Contenu Vidéo</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-brain mr-3 text-blue-400"></i>
+                  Contenus Motivationnels
+                </h3>
+                
+                <p class="text-gray-400 mb-6">
+                  Production de vidéos courtes et impactantes axées sur le développement personnel, 
+                  la motivation et le mindset, conçues pour inspirer et engager les audiences.
+                </p>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold mb-3 text-gray-300">Caractéristiques</h4>
+                  <ul class="space-y-2 text-gray-400">
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-blue-400 mr-2 mt-1"></i>
+                      <span>Scripts percutants et structurés</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-blue-400 mr-2 mt-1"></i>
+                      <span>Montage rythmé et dynamique</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-blue-400 mr-2 mt-1"></i>
+                      <span>Appels à l'action stratégiques</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-blue-400 mr-2 mt-1"></i>
+                      <span>Optimisation pour les algorithmes</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded-full">TikTok</span>
+                  <span class="px-3 py-1 bg-red-500/20 text-red-400 text-sm rounded-full">YouTube Shorts</span>
+                  <span class="px-3 py-1 bg-purple-500/20 text-purple-400 text-sm rounded-full">Instagram Reels</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-graduation-cap mr-3 text-green-400"></i>
+                  Contenus Éducatifs
+                </h3>
+                
+                <p class="text-gray-400 mb-6">
+                  Création de vidéos pédagogiques et tutoriels qui simplifient des concepts complexes, 
+                  avec une approche visuelle engageante et une structure claire.
+                </p>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold mb-3 text-gray-300">Approche</h4>
+                  <ul class="space-y-2 text-gray-400">
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Explications étape par étape</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Visualisation des concepts abstraits</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Adaptation au niveau de l'audience</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Éléments visuels renforçant l'apprentissage</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded-full">Tutoriels</span>
+                  <span class="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full">Éducatif</span>
+                  <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded-full">Explicatif</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3D Animation -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Animation & Modélisation 3D</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-user-circle mr-3 text-purple-400"></i>
+                  Création de Personnages
+                </h3>
+                
+                <p class="text-gray-400 mb-6">
+                  Conception et modélisation de personnages 3D uniques avec des personnalités distinctes, 
+                  adaptés à différents univers narratifs et contextes culturels.
+                </p>
+                
+                <div class="space-y-4">
+                  <div>
+                    <h4 class="font-medium text-gray-300 mb-2">Processus</h4>
+                    <div class="space-y-3">
+                      <div class="process-step">
+                        <span class="font-medium">Concept & Design</span>
+                        <p class="text-gray-500 text-sm mt-1">Esquisses, personnalité, backstory</p>
+                      </div>
+                      <div class="process-step">
+                        <span class="font-medium">Modélisation 3D</span>
+                        <p class="text-gray-500 text-sm mt-1">Sculpture digitale, détails, proportions</p>
+                      </div>
+                      <div class="process-step">
+                        <span class="font-medium">Texturing & Materials</span>
+                        <p class="text-gray-500 text-sm mt-1">Couleurs, textures, matériaux réalistes</p>
+                      </div>
+                      <div class="process-step">
+                        <span class="font-medium">Rigging & Animation</span>
+                        <p class="text-gray-500 text-sm mt-1">Squelette, contrôles, mouvements naturels</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-theater-masks mr-3 text-pink-400"></i>
+                  Mini-Séries Animées
+                </h3>
+                
+                <p class="text-gray-400 mb-6">
+                  Développement de mini-séries animées originales avec narration progressive, 
+                  arcs narratifs engageants et univers cohérents, adaptés au contexte culturel africain.
+                </p>
+                
+                <div class="space-y-4">
+                  <div>
+                    <h4 class="font-medium text-gray-300 mb-2">Éléments Clés</h4>
+                    <ul class="space-y-2 text-gray-400">
+                      <li class="flex items-start">
+                        <i class="fas fa-star text-pink-400 mr-2 mt-1"></i>
+                        <span>Narrations authentiques et culturellement pertinentes</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-star text-pink-400 mr-2 mt-1"></i>
+                        <span>Développement progressif des personnages</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-star text-pink-400 mr-2 mt-1"></i>
+                        <span>Design d'univers visuels cohérents</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-star text-pink-400 mr-2 mt-1"></i>
+                        <span>Équilibre entre divertissement et message</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div class="pt-4">
+                    <h4 class="font-medium text-gray-300 mb-2">Styles Narratifs</h4>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-3 py-1 bg-pink-500/20 text-pink-400 text-sm rounded-full">Aventure</span>
+                      <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded-full">Éducatif</span>
+                      <span class="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full">Culturel</span>
+                      <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded-full">Comédie</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Creative Process -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Processus Créatif</h2>
+          
+          <div class="grid md:grid-cols-4 gap-6 mb-12">
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="text-2xl font-bold text-blue-400">1</div>
+              </div>
+              <h3 class="text-lg font-bold mb-3">Conceptualisation</h3>
+              <p class="text-gray-400 text-sm">
+                Recherche, brainstorming et développement du concept créatif.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="text-2xl font-bold text-purple-400">2</div>
+              </div>
+              <h3 class="text-lg font-bold mb-3">Pré-production</h3>
+              <p class="text-gray-400 text-sm">
+                Script, storyboard, planning et préparation des ressources.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="text-2xl font-bold text-green-400">3</div>
+              </div>
+              <h3 class="text-lg font-bold mb-3">Production</h3>
+              <p class="text-gray-400 text-sm">
+                Modélisation, animation, tournage et création des éléments visuels.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="w-16 h-16 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div class="text-2xl font-bold text-pink-400">4</div>
+              </div>
+              <h3 class="text-lg font-bold mb-3">Post-production</h3>
+              <p class="text-gray-400 text-sm">
+                Montage, effets, sound design et optimisation pour diffusion.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Portfolio Gallery - REMPLACÉ PAR TES VIDÉOS -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Mes Vidéos</h2>
+          
+          <p class="text-gray-400 text-lg mb-6 max-w-3xl">
+            Découvrez mes créations vidéo : motivation & développement personnel, 
+            animations 3D avec des chats en famille, et aventures culinaires félines.
+          </p>
+          
+          <!-- Filtres pour les vidéos -->
+          <div class="my-video-filters mb-8">
+            <button class="my-filter-btn active" data-filter="all">Toutes les vidéos</button>
+            <button class="my-filter-btn" data-filter="motivation">Motivation</button>
+            <button class="my-filter-btn" data-filter="animation">Chats en famille</button>
+            <button class="my-filter-btn" data-filter="cuisine">Chat qui cuisine</button>
+          </div>
+          
+          <!-- Grille de vidéos -->
+          <div class="my-video-grid" id="my-video-gallery">
+            <!-- Les vidéos seront générées dynamiquement par JavaScript -->
+          </div>
+          
+          <!-- Message si pas de vidéos -->
+          <div id="my-no-videos-message" class="text-center py-12 hidden">
+            <i class="fas fa-film text-5xl text-gray-700 mb-4"></i>
+            <h3 class="text-xl font-bold mb-2">Aucune vidéo trouvée</h3>
+            <p class="text-gray-500">Aucune vidéo ne correspond à ce filtre.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tools & Software Updated -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Mes Outils Créatifs & IA</h2>
+          
+          <p class="text-gray-400 text-lg mb-10 max-w-3xl">
+            J'utilise une combinaison d'outils d'IA avancés et de logiciels créatifs 
+            pour produire des contenus de haute qualité de manière efficace et innovante.
+          </p>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <!-- ChatGPT -->
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fab fa-openai text-green-400 text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">ChatGPT</h3>
+                  <p class="text-gray-500 text-sm">Script & Scénarios</p>
+                </div>
+              </div>
+              <p class="text-gray-400 text-sm">
+                Création de scripts percutants, optimisation des dialogues et 
+                génération d'idées narratives innovantes pour mes projets.
+              </p>
+            </div>
+            
+            <!-- ElevenLabs -->
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fas fa-microphone-alt text-blue-400 text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">ElevenLabs</h3>
+                  <p class="text-gray-500 text-sm">Voix off IA</p>
+                </div>
+              </div>
+              <p class="text-gray-400 text-sm">
+                Voix off naturelles et expressives en français et langues africaines.
+                Narration professionnelle pour animations et contenus vidéo.
+              </p>
+            </div>
+            
+            <!-- PicLumen / Leonardo / Ideogram -->
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fas fa-image text-purple-400 text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">Génération d'Images IA</h3>
+                  <p class="text-gray-500 text-sm">PicLumen • Leonardo • Ideogram</p>
+                </div>
+              </div>
+              <p class="text-gray-400 text-sm">
+                Création d'images uniques, personnages stylisés et visuels cohérents 
+                pour l'univers de mes animations et mini-séries.
+              </p>
+            </div>
+            
+            <!-- Dreamina -->
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-pink-500/20 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fas fa-paint-brush text-pink-400 text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">Dreamina</h3>
+                  <p class="text-gray-500 text-sm">Design & Illustration</p>
+                </div>
+              </div>
+              <p class="text-gray-400 text-sm">
+                Conception d'illustrations originales, moodboards visuels et 
+                éléments graphiques pour enrichir la narration.
+              </p>
+            </div>
+            
+            <!-- Google AI Studio -->
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fab fa-google text-red-400 text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">Google AI Studio</h3>
+                  <p class="text-gray-500 text-sm">Recherche & Innovation</p>
+                </div>
+              </div>
+              <p class="text-gray-400 text-sm">
+                Exploration des dernières avancées en IA générative, 
+                expérimentation de nouveaux modèles et techniques créatives.
+              </p>
+            </div>
+            
+            <!-- Hailuo / Pixverse -->
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fas fa-video text-cyan-400 text-2xl"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">Animation IA</h3>
+                  <p class="text-gray-500 text-sm">Hailuo • Pixverse</p>
+                </div>
+              </div>
+              <p class="text-gray-400 text-sm">
+                Animation d'images, création de mouvements fluides et 
+                production de séquences animées pour enrichir le contenu vidéo.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Workflow Section -->
+          <div class="card-hover fade-in p-8 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+            <h3 class="text-2xl font-bold mb-6 text-center">Mon Workflow Créatif avec l'IA</h3>
+            
+            <div class="grid md:grid-cols-4 gap-6">
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center mx-auto mb-4">
+                  <span class="text-white font-bold text-xl">1</span>
+                </div>
+                <h4 class="font-bold mb-2">Idée & Script</h4>
+                <p class="text-gray-400 text-sm">
+                  ChatGPT pour le brainstorming et la structuration narrative
+                </p>
+              </div>
+              
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mx-auto mb-4">
+                  <span class="text-white font-bold text-xl">2</span>
+                </div>
+                <h4 class="font-bold mb-2">Visuels & Personnages</h4>
+                <p class="text-gray-400 text-sm">
+                  Leonardo / Ideogram pour la création d'images et personnages
+                </p>
+              </div>
+              
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mx-auto mb-4">
+                  <span class="text-white font-bold text-xl">3</span>
+                </div>
+                <h4 class="font-bold mb-2">Animation & Mouvement</h4>
+                <p class="text-gray-400 text-sm">
+                  Pixverse / Hailuo pour animer les visuels créés
+                </p>
+              </div>
+              
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center mx-auto mb-4">
+                  <span class="text-white font-bold text-xl">4</span>
+                </div>
+                <h4 class="font-bold mb-2">Voix & Sound Design</h4>
+                <p class="text-gray-400 text-sm">
+                  ElevenLabs pour la narration et voix off professionnelles
+                </p>
+              </div>
+            </div>
+            
+            <div class="mt-8 p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg">
+              <p class="text-center text-gray-300">
+                <i class="fas fa-lightbulb mr-2 text-yellow-400"></i>
+                Cette combinaison d'outils d'IA me permet de produire du contenu de qualité 
+                professionnelle rapidement, tout en gardant une créativité authentique.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto text-center">
+          <div class="card-hover p-8 bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur rounded-xl border border-gray-700">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Un projet créatif en tête ?</h2>
+            <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+              Que ce soit pour une animation 3D, une série de vidéos ou du contenu engageant pour vos réseaux sociaux, 
+              je suis là pour donner vie à votre vision.
+            </p>
+            <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-semibold text-white hover:shadow-purple-500/30 transition-all duration-300">
+              Discuter de mon projet créatif
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-gray-900/50 py-8">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="text-xl font-bold tracking-tight">
+            <span class="gradient-text">Salaou Souleyman</span>
+          </a>
+          <p class="text-gray-500 text-sm mt-2">Créateur Digital & Animateur 3D</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="https://youtube.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-youtube text-xl"></i>
+          </a>
+          <a href="https://tiktok.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-tiktok text-xl"></i>
+          </a>
+          <a href="https://instagram.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-instagram text-xl"></i>
+          </a>
+          <a href="contact.html" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-envelope text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+        <p class="text-gray-500 text-sm">© 2025 Salaou Souleyman. Tous droits réservés.</p>
+        <p class="text-gray-600 text-sm mt-1">L'art de raconter des histoires à travers l'animation et la création visuelle</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Données des vidéos (TES VIDÉOS À TOI)
+    const myVideos = [
+      {
+        id: 1,
+        title: "Les 7 Lois du Respect  Ce Que Tout Homme Doit Comprendre",
+        description: "Tu veux être respecté ? Commence par respecter ces lois. C’est pas le monde qui est cruel… c’est toi qui ignores les règles. Sauvegarde cette vidéo",
+        category: "motivation",
+        youtubeId: "HCBEkFzhtk0", // REMPLACE PAR TON ID YouTube
+        thumbnail: "images/moti1.jpeg",
+        duration: "1:20",
+        views: "140.0K"
+      },
+      {
+        id: 2,
+        title: "L'homme qui a abandonné sa femme enceinte va regretter son geste… ",
+        description: "Une histoire animée pleine d'émotions : un homme rejette sa femme enceinte, des années plus tard, il croise sa fille devenue infirmière. Une leçon de vie sur le karma, l'amour et la justice du destin. 🕊️",
+        category: "animation",
+        youtubeId: "59X8Vkf3Ss4", // REMPLACE PAR TON ID YouTube
+        thumbnail: "images/chat1.png",
+        duration: "1:00",
+        views: "2.7K"
+      },
+      {
+        id: 3,
+        title: "Evolution of Lamborghini (1963~ 2025)",
+        description: "Evolution de la marque lamborghini",
+        category: "cars",
+        youtubeId: "zYLgCfALi5I", // REMPLACE PAR TON ID YouTube
+        thumbnail: "images/voi1.jpeg",
+        duration: "00:50",
+        views: "25.3K"
+      },
+      {
+        id: 4,
+        title: "Comment se respecter en 2025💡🔥",
+        description: "Comment développer une discipline solide pour réussir dans tous vos projets.",
+        category: "motivation",
+        youtubeId: "K7M5lAlagMI", // REMPLACE PAR TON ID YouTube
+        thumbnail: "images/moti2.jpeg",
+        duration: "1:50",
+        views: "350.0K"
+      },
+      {
+        id: 5,
+        title: "Evolution of Rolls-Royce (1904 ~ 2025)",
+        description: "Evolution de la marque rolls royce",
+        category: "cars",
+        youtubeId: "iz1XHkFA8bA", // REMPLACE PAR TON ID YouTube
+        thumbnail: "images/voi2.jpeg",
+        duration: "00:50",
+        views: "10.5K"
+      },
+      {
+        id: 6,
+        title: "Ce chat cuisine mieux que moi ! Regarde ce qu'il prépare😹🍖",
+        description: "Un chat orange tabby devient chef 5⭐ dans une cuisine rustique en plein air ! Préparation, découpe, cuisson et… dégustation avec langue de salive MIAM Regarde jusqu'à la fin pour la scène la plus folle ! 🍳 ",
+        category: "cuisine",
+        youtubeId: "Y_NKuNn8Opo", // REMPLACE PAR TON ID YouTube
+        thumbnail: "images/chat2.png",
+        duration: "00:30",
+        views: "3.9K"
+      }
+    ];
+
+    // Éléments DOM pour TES VIDÉOS
+    const myVideoGallery = document.getElementById('my-video-gallery');
+    const myNoVideosMessage = document.getElementById('my-no-videos-message');
+    const myFilterButtons = document.querySelectorAll('.my-filter-btn');
+    const myVideoModal = document.getElementById('my-video-modal');
+    const myModalVideo = document.getElementById('my-modal-video');
+    const myModalTitle = document.getElementById('my-modal-title');
+    const myCloseModalBtn = document.getElementById('my-close-modal');
+    
+    // Variable pour le filtre actif
+    let myActiveFilter = 'all';
+    
+    // Afficher TES VIDÉOS
+    function displayMyVideos(filter = 'all') {
+      myVideoGallery.innerHTML = '';
+      
+      const filteredVideos = filter === 'all' 
+        ? myVideos 
+        : myVideos.filter(video => video.category === filter);
+      
+      if (filteredVideos.length === 0) {
+        myNoVideosMessage.classList.remove('hidden');
+        return;
+      }
+      
+      myNoVideosMessage.classList.add('hidden');
+      
+      filteredVideos.forEach(video => {
+        const videoElement = document.createElement('div');
+        videoElement.className = 'my-video-item fade-in';
+        videoElement.dataset.category = video.category;
+        
+        let categoryText = '';
+        let categoryClass = '';
+        
+        switch(video.category) {
+          case 'motivation':
+            categoryText = 'Motivation';
+            categoryClass = 'motivation';
+            break;
+          case 'animation':
+            categoryText = 'Chats en famille';
+            categoryClass = 'animation';
+            break;
+          case 'cuisine':
+            categoryText = 'Chat qui cuisine';
+            categoryClass = 'cuisine';
+            break;
+          case 'cars':
+            categoryText = 'Cars Evolution';
+            categoryClass = 'cars';
+            break;
+        }
+        
+        videoElement.innerHTML = `
+          <div class="my-video-preview">
+            <img src="${video.thumbnail}" alt="${video.title}">
+            <div class="my-video-overlay">
+              <div class="play-button" style="width: 50px; height: 50px;">
+                <i class="fas fa-play text-white"></i>
+              </div>
+            </div>
+          </div>
+          <div class="my-video-info">
+            <span class="my-video-category ${categoryClass}">${categoryText}</span>
+            <h4 class="my-video-title">${video.title}</h4>
+            <p class="my-video-description">${video.description}</p>
+            <div class="my-video-meta">
+              <span><i class="far fa-clock mr-1"></i> ${video.duration}</span>
+              <span><i class="far fa-eye mr-1"></i> ${video.views} vues</span>
+            </div>
+          </div>
+        `;
+        
+        // Ajouter l'événement pour ouvrir la vidéo
+        videoElement.addEventListener('click', () => openMyVideoModal(video));
+        myVideoGallery.appendChild(videoElement);
+      });
+      
+      // Activer les animations de fade-in
+      setTimeout(() => {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach(element => {
+          element.classList.add('visible');
+        });
+      }, 100);
+    }
+    
+    // Ouvrir la modal vidéo POUR TES VIDÉOS
+    function openMyVideoModal(video) {
+      myModalVideo.src = `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`;
+      myModalTitle.textContent = video.title;
+      myVideoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    // Fermer la modal vidéo POUR TES VIDÉOS
+    function closeMyVideoModal() {
+      myVideoModal.classList.remove('active');
+      myModalVideo.src = '';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Initialiser les filtres POUR TES VIDÉOS
+    myFilterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Retirer la classe active de tous les boutons
+        myFilterButtons.forEach(btn => btn.classList.remove('active'));
+        
+        // Ajouter la classe active au bouton cliqué
+        button.classList.add('active');
+        
+        // Mettre à jour le filtre actif
+        myActiveFilter = button.dataset.filter;
+        
+        // Afficher les vidéos filtrées
+        displayMyVideos(myActiveFilter);
+      });
+    });
+    
+    // Fermer la modal en cliquant sur le bouton fermer
+    myCloseModalBtn.addEventListener('click', closeMyVideoModal);
+    
+    // Fermer la modal en cliquant en dehors
+    myVideoModal.addEventListener('click', (e) => {
+      if (e.target === myVideoModal) {
+        closeMyVideoModal();
+      }
+    });
+    
+    // Fermer la modal avec la touche Échap
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && myVideoModal.classList.contains('active')) {
+        closeMyVideoModal();
+      }
+    });
+    
+    // Initialiser l'affichage de TES VIDÉOS
+    displayMyVideos();
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    
+    // Vérifier le thème sauvegardé
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', function() {
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+    
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    // Toggle mobile menu
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeInOnScroll = function() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
+        }
+      });
+    };
+    
+    // Check on load and scroll
+    window.addEventListener('load', fadeInOnScroll);
+    window.addEventListener('scroll', fadeInOnScroll);
+    
+    // Video thumbnail click simulation (pour les anciennes miniatures)
+    const videoThumbnails = document.querySelectorAll('.video-thumbnail');
+    
+    videoThumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', function() {
+        alert('Fonctionnalité de lecture vidéo - À intégrer avec une vraie vidéo');
+      });
+    });
+  </script>
+</body>
+</html>

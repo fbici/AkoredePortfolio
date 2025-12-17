@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Salaou Souleyman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #8b5cf6;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--darker);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    /* Styles pour les modes light/dark */
+    .dark-mode {
+      background-color: var(--darker);
+      color: var(--light);
+    }
+    
+    .light-mode {
+      background-color: #f8fafc;
+      color: #1f2937;
+    }
+    
+    .light-mode .bg-gray-950 {
+      background-color: #f8fafc;
+    }
+    
+    .light-mode .bg-gray-900 {
+      background-color: #e5e7eb;
+    }
+    
+    .light-mode .bg-gray-900\/50 {
+      background-color: rgba(229, 231, 235, 0.8);
+    }
+    
+    .light-mode .text-gray-100 {
+      color: #1f2937;
+    }
+    
+    .light-mode .text-gray-300 {
+      color: #4b5563;
+    }
+    
+    .light-mode .text-gray-400 {
+      color: #6b7280;
+    }
+    
+    .light-mode .text-gray-500 {
+      color: #9ca3af;
+    }
+    
+    .light-mode .border-gray-800 {
+      border-color: #d1d5db;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .bg-grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .menu-item {
+      position: relative;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover::after {
+      width: 100%;
+    }
+    
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+    
+    .contact-card:hover::before {
+      transform: translateX(100%);
+    }
+    
+    .form-input {
+      background-color: rgba(30, 41, 59, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    
+    .social-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icon:hover {
+      transform: translateY(-5px);
+    }
+    
+    .contact-info-item {
+      transition: all 0.3s ease;
+      padding: 1.5rem;
+    }
+    
+    .contact-info-item:hover {
+      background-color: rgba(30, 41, 59, 0.3);
+    }
+    
+    .submit-btn {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+    
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+    }
+    
+    @media (max-width: 768px) {
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+    }
+
+    /* TOGGLE STYLÉ EN BAS À DROITE */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+}
+
+.dark-mode .theme-toggle {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  color: white;
+  animation: pulse-dark 3s infinite;
+}
+
+.light-mode .theme-toggle {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+  color: white;
+  animation: pulse-light 3s infinite;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse-dark {
+  0%, 100% { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5); }
+}
+
+@keyframes pulse-light {
+  0%, 100% { box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(251, 191, 36, 0.5); }
+}
+
+/* Tooltip sur hover */
+.theme-toggle::after {
+  content: 'Changer de thème';
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-toggle:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+  
+  .theme-toggle::after {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+}
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 overflow-x-hidden dark-mode">
+    <!-- Theme Toggle -->
+    <div id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+    
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 w-full h-16 bg-gray-900/90 backdrop-blur-lg z-50 border-b border-gray-800">
+    <div class="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold tracking-tight">
+        <span class="gradient-text">Salaou Souleyman</span>
+      </a>
+      
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a href="index.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Accueil</a>
+        <a href="cv.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">CV</a>
+        <a href="skills.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Compétences</a>
+        <a href="content.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Création</a>
+        <a href="agriculture.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Agriculture</a>
+        <a href="projects.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Projets</a>
+        <a href="contact.html" class="menu-item px-4 py-2 text-sm font-medium text-blue-400 hover:text-blue-300">Contact</a>
+      </nav>
+      
+      <!-- Menu Mobile Toggle -->
+      <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 backdrop-blur-lg border-b border-gray-800 hidden">
+      <div class="flex flex-col py-4">
+        <a href="index.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Accueil</a>
+        <a href="cv.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">CV</a>
+        <a href="skills.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Compétences</a>
+        <a href="content.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Création</a>
+        <a href="agriculture.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Agriculture</a>
+        <a href="projects.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Projets</a>
+        <a href="contact.html" class="px-6 py-3 text-blue-400 hover:text-blue-300 hover:bg-gray-800/50">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-20">
+    <div class="container mx-auto px-4 md:px-8">
+      <!-- Hero Section -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-8">
+            <span class="inline-block px-4 py-1 bg-gray-800/50 backdrop-blur rounded-full text-sm text-blue-300 border border-gray-700">
+              Travaillons ensemble
+            </span>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">Contactez-moi</span>
+          </h1>
+          
+          <p class="text-gray-400 text-lg max-w-3xl">
+            Vous avez un projet en tête, une question ou simplement envie d'échanger ?
+            N'hésitez pas à me contacter via le formulaire ou directement par les moyens ci-dessous.
+            Je réponds généralement dans les 24 heures.
+          </p>
+        </div>
+      </section>
+
+      <!-- Contact Content -->
+      <section class="py-8">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Contact Form -->
+            <div class="lg:col-span-2 fade-in">
+              <div class="card-hover contact-card p-6 md:p-8 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                <h2 class="section-title text-2xl md:text-3xl font-bold mb-6">Envoyez-moi un message</h2>
+                
+                <form id="contact-form" class="space-y-6">
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label for="name" class="block text-gray-300 mb-2 font-medium">Nom complet *</label>
+                      <input 
+                        type="text" 
+                        id="name" 
+                        name="name"
+                        required
+                        class="w-full form-input px-4 py-3 rounded-lg focus:outline-none"
+                        placeholder="Votre nom"
+                      >
+                    </div>
+                    
+                    <div>
+                      <label for="email" class="block text-gray-300 mb-2 font-medium">Adresse email *</label>
+                      <input 
+                        type="email" 
+                        id="email" 
+                        name="email"
+                        required
+                        class="w-full form-input px-4 py-3 rounded-lg focus:outline-none"
+                        placeholder="votre@email.com"
+                      >
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <label for="subject" class="block text-gray-300 mb-2 font-medium">Sujet *</label>
+                    <select 
+                      id="subject" 
+                      name="subject"
+                      required
+                      class="w-full form-input px-4 py-3 rounded-lg focus:outline-none"
+                    >
+                      <option value="" disabled selected>Sélectionnez un sujet</option>
+                      <option value="web">Développement web</option>
+                      <option value="animation">Animation 3D & création</option>
+                      <option value="agriculture">Projet agricole</option>
+                      <option value="collaboration">Collaboration</option>
+                      <option value="other">Autre</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label for="message" class="block text-gray-300 mb-2 font-medium">Message *</label>
+                    <textarea 
+                      id="message" 
+                      name="message"
+                      rows="6"
+                      required
+                      class="w-full form-input px-4 py-3 rounded-lg focus:outline-none"
+                      placeholder="Décrivez votre projet, vos idées ou vos questions..."
+                    ></textarea>
+                  </div>
+                  
+                  <div class="flex items-center">
+                    <input 
+                      type="checkbox" 
+                      id="consent"
+                      name="consent"
+                      required
+                      class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+                    >
+                    <label for="consent" class="ml-2 text-gray-400 text-sm">
+                      J'accepte que mes informations soient utilisées pour répondre à ma demande.
+                    </label>
+                  </div>
+                  
+                  <button type="submit" class="submit-btn w-full py-3 rounded-lg font-bold text-white">
+                    <span id="submit-text">Envoyer le message</span>
+                    <i class="fas fa-paper-plane ml-2"></i>
+                  </button>
+                  
+                  <p class="text-gray-500 text-sm text-center mt-4">
+                    Le formulaire est actuellement en mode démonstration. Pour un formulaire fonctionnel,
+                    une intégration backend serait nécessaire.
+                  </p>
+                </form>
+              </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="fade-in">
+              <div class="space-y-6">
+                <!-- Contact Card -->
+                <div class="card-hover contact-card p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                  <h3 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-info-circle mr-3 text-blue-400"></i>
+                    Informations de contact
+                  </h3>
+                  
+                  <div class="space-y-4">
+                    <div class="contact-info-item flex items-start p-4 bg-gray-800/30 rounded-lg">
+                      <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-envelope text-blue-400"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-gray-300">Email</h4>
+                        <p class="text-gray-400 text-sm mt-1">salaousouleyman@gmail.com</p>
+                        <a href="mailto:salaousouleyman@gmail.com" class="text-blue-400 text-sm mt-2 inline-block hover:text-blue-300">
+                          <i class="fas fa-external-link-alt mr-1"></i>
+                          Envoyer un email
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <div class="contact-info-item flex items-start p-4 bg-gray-800/30 rounded-lg">
+                      <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-phone text-green-400"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-gray-300">Téléphone / WhatsApp</h4>
+                        <p class="text-gray-400 text-sm mt-1">+229 54 80 13 85</p>
+                        <a href="https://wa.me/22954801385" target="_blank" class="text-green-400 text-sm mt-2 inline-block hover:text-green-300">
+                          <i class="fab fa-whatsapp mr-1"></i>
+                          Message WhatsApp
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <div class="contact-info-item flex items-start p-4 bg-gray-800/30 rounded-lg">
+                      <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mr-4">
+                        <i class="fas fa-map-marker-alt text-purple-400"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-gray-300">Localisation</h4>
+                        <p class="text-gray-400 text-sm mt-1">Cotonou, Bénin</p>
+                        <p class="text-gray-500 text-xs mt-2">Disponible pour collaborations locales et à distance</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Availability -->
+                <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                  <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-clock mr-3 text-yellow-400"></i>
+                    Disponibilité
+                  </h3>
+                  
+                  <div class="space-y-3">
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Lundi - Vendredi</span>
+                      <span class="text-gray-300 font-medium">9h - 18h</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Samedi</span>
+                      <span class="text-gray-300 font-medium">10h - 16h</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-400">Dimanche</span>
+                      <span class="text-gray-300 font-medium">Sur rendez-vous</span>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-4 p-3 bg-blue-500/10 rounded-lg">
+                    <p class="text-blue-300 text-sm">
+                      <i class="fas fa-info-circle mr-2"></i>
+                      Réponse généralement dans les 24h en semaine
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Social Media & Networks -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Réseaux & Plateformes</h2>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <a href="https://github.com" target="_blank" class="fade-in">
+              <div class="card-hover contact-card p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                <div class="social-icon bg-gray-800 text-white mx-auto mb-4">
+                  <i class="fab fa-github"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">GitHub</h3>
+                <p class="text-gray-400 text-sm">Code source & projets </p>
+                <span class="inline-block mt-4 text-blue-400 text-sm font-medium">
+                  Voir mes projets <i class="fas fa-arrow-right ml-1"></i>
+                </span>
+              </div>
+            </a>
+            
+            
+            <a href="https://www.youtube.com/channel/UChAdpFAD2a6HOsq5nx__Xpw" target="_blank" class="fade-in">
+              <div class="card-hover contact-card p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                <div class="social-icon bg-red-600 text-white mx-auto mb-4">
+                  <i class="fab fa-youtube"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">YouTube</h3>
+                <p class="text-gray-400 text-sm">Contenus vidéo & Animations</p>
+                <span class="inline-block mt-4 text-blue-400 text-sm font-medium">
+                  Voir mes vidéos <i class="fas fa-arrow-right ml-1"></i>
+                </span>
+              </div>
+            </a>
+
+            <a href="https://www.youtube.com/channel/UChEtVtGIkLYethLcqzq8-RA" target="_blank" class="fade-in">
+              <div class="card-hover contact-card p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                <div class="social-icon bg-red-600 text-white mx-auto mb-4">
+                  <i class="fab fa-youtube"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">YouTube</h3>
+                <p class="text-gray-400 text-sm">Vidéo Motivationnelle</p>
+                <span class="inline-block mt-4 text-blue-400 text-sm font-medium">
+                  Voir mes vidéos <i class="fas fa-arrow-right ml-1"></i>
+                </span>
+              </div>
+            </a>
+            
+            <a href="https://www.tiktok.com/@motivationpuissant?is_from_webapp=1&sender_device=pc" target="_blank" class="fade-in">
+              <div class="card-hover contact-card p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                <div class="social-icon bg-gray-900 text-white mx-auto mb-4">
+                  <i class="fab fa-tiktok"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2">TikTok</h3>
+                <p class="text-gray-400 text-sm">Contenus courts & créatifs</p>
+                <span class="inline-block mt-4 text-blue-400 text-sm font-medium">
+                  Voir mes contenus <i class="fas fa-arrow-right ml-1"></i>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Questions Fréquentes</h2>
+          
+          <div class="grid md:grid-cols-2 gap-6 mb-12">
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-question-circle mr-3 text-blue-400"></i>
+                Quels types de projets acceptez-vous ?
+              </h3>
+              <p class="text-gray-400">
+                Je travaille sur des projets variés : développement web (sites, applications),
+                animation 3D, création de contenu digital, et projets innovants combinant
+                technologie et secteurs traditionnels comme l'agriculture.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-question-circle mr-3 text-green-400"></i>
+                Quels sont vos tarifs ?
+              </h3>
+              <p class="text-gray-400">
+                Mes tarifs varient selon la complexité du projet, le temps nécessaire et les
+                spécifications techniques. Je propose des devis personnalisés après analyse
+                de vos besoins. Contactez-moi pour discuter de votre projet.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-question-circle mr-3 text-purple-400"></i>
+                Travaillez-vous à distance ?
+              </h3>
+              <p class="text-gray-400">
+                Oui, je travaille principalement à distance avec des outils collaboratifs modernes.
+                Je suis également disponible pour des rencontres en présentiel à Cotonou et ses environs
+                selon les besoins du projet.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <h3 class="text-lg font-bold mb-3 flex items-center">
+                <i class="fas fa-question-circle mr-3 text-yellow-400"></i>
+                Quel est votre délai de réponse ?
+              </h3>
+              <p class="text-gray-400">
+                Je m'efforce de répondre à tous les messages dans les 24 heures ouvrables.
+                Pour les demandes urgentes, privilégiez WhatsApp ou l'appel téléphonique
+                pendant les heures de disponibilité indiquées.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Map & Location -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Localisation</h2>
+          
+          <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-map-marked-alt mr-3 text-red-400"></i>
+                  Zone d'intervention
+                </h3>
+                
+                <p class="text-gray-400 mb-6">
+                  Basé à Cotonou, Bénin, je travaille avec des clients locaux et internationaux.
+                  Je suis mobile dans la région et disponible pour des déplacements selon les
+                  besoins des projets.
+                </p>
+                
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <i class="fas fa-globe-africa text-blue-400"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-gray-300">Bénin & Afrique de l'Ouest</h4>
+                      <p class="text-gray-500 text-sm mt-1">Collaborations locales et régionales</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <i class="fas fa-laptop-house text-green-400"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-gray-300">Travail à distance</h4>
+                      <p class="text-gray-500 text-sm mt-1">Projets internationaux en remote</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="bg-gray-800/50 rounded-lg overflow-hidden border border-gray-700 flex items-center justify-center h-64">
+                <!-- Placeholder for map -->
+                <div class="text-center p-6">
+                  <i class="fas fa-map text-4xl text-gray-600 mb-4"></i>
+                  <p class="text-gray-400 font-medium">Cotonou, Bénin</p>
+                  <p class="text-gray-500 text-sm mt-2">
+                    Zone d'intervention principale
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto text-center">
+          <div class="card-hover p-8 bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur rounded-xl border border-gray-700">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Prêt à commencer votre projet ?</h2>
+            <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+              Que vous ayez une idée précise ou simplement une envie d'explorer des possibilités,
+              je serais ravi d'échanger avec vous et de voir comment je peux vous aider.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="mailto:salaousouleyman@gmail.com" class="inline-block px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg font-semibold text-white hover:shadow-blue-500/30 transition-all duration-300">
+                <i class="fas fa-envelope mr-2"></i>
+                Envoyer un email
+              </a>
+              
+              <a href="https://wa.me/22954801385" target="_blank" class="inline-block px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 rounded-lg font-semibold text-white hover:shadow-green-500/30 transition-all duration-300">
+                <i class="fab fa-whatsapp mr-2"></i>
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-gray-900/50 py-8">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="text-xl font-bold tracking-tight">
+            <span class="gradient-text">Salaou Souleyman</span>
+          </a>
+          <p class="text-gray-500 text-sm mt-2">Développeur Full-Stack & Créateur Digital</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+          <a href="https://youtube.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-youtube text-xl"></i>
+          </a>
+          <a href="https://wa.me/22954801385" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-whatsapp text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+        <p class="text-gray-500 text-sm">© 2025 Salaou Souleyman. Tous droits réservés.</p>
+        <p class="text-gray-600 text-sm mt-1">Disponible pour collaborations locales et internationales</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    
+    // Vérifier le thème sauvegardé
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', function() {
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+    
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeInOnScroll = function() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
+        }
+      });
+    };
+    
+    // Check on load and scroll
+    window.addEventListener('load', fadeInOnScroll);
+    window.addEventListener('scroll', fadeInOnScroll);
+    
+    // Contact form submission simulation
+    const contactForm = document.getElementById('contact-form');
+    const submitText = document.getElementById('submit-text');
+    
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const originalText = submitText.textContent;
+      submitText.textContent = 'Envoi en cours...';
+      contactForm.querySelector('button[type="submit"]').disabled = true;
+      
+      // Simulate API call
+      setTimeout(() => {
+        // Show success message
+        submitText.textContent = 'Message envoyé !';
+        
+        // Reset form after a moment
+        setTimeout(() => {
+          contactForm.reset();
+          submitText.textContent = originalText;
+          contactForm.querySelector('button[type="submit"]').disabled = false;
+          
+          // Show success alert (in a real scenario, this would be a proper notification)
+          alert('Merci pour votre message !\n\nCe formulaire est en mode démonstration. Dans une version réelle, votre message aurait été envoyé et je vous répondrais dans les plus brefs délais.');
+        }, 2000);
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

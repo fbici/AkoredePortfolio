@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Numérique | Salaou Souleyman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Inclure les styles du fichier index.html */
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #8b5cf6;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--darker);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    /* Styles pour les modes light/dark */
+    .dark-mode {
+      background-color: var(--darker);
+      color: var(--light);
+    }
+    
+    .light-mode {
+      background-color: #f8fafc;
+      color: #1f2937;
+    }
+    
+    .light-mode .bg-gray-950 {
+      background-color: #f8fafc;
+    }
+    
+    .light-mode .bg-gray-900 {
+      background-color: #e5e7eb;
+    }
+    
+    .light-mode .bg-gray-900\/50 {
+      background-color: rgba(229, 231, 235, 0.8);
+    }
+    
+    .light-mode .text-gray-100 {
+      color: #1f2937;
+    }
+    
+    .light-mode .text-gray-300 {
+      color: #4b5563;
+    }
+    
+    .light-mode .text-gray-400 {
+      color: #6b7280;
+    }
+    
+    .light-mode .text-gray-500 {
+      color: #9ca3af;
+    }
+    
+    .light-mode .border-gray-800 {
+      border-color: #d1d5db;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    
+    .bg-grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .menu-item {
+      position: relative;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover::after {
+      width: 100%;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    }
+    
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 20px;
+      width: 2px;
+      height: calc(100% + 10px);
+      background: rgba(59, 130, 246, 0.3);
+    }
+    
+    .timeline-item:last-child::after {
+      display: none;
+    }
+    
+    .language-level {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 3px;
+    }
+    
+    .language-level.active {
+      background-color: #3b82f6;
+    }
+    
+    .language-level.inactive {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Styles pour les barres de compétences */
+    .skill-bar {
+      width: 100%;
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .skill-level {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 4px;
+      width: 0;
+      transition: width 1.5s ease-in-out;
+    }
+
+    /* TOGGLE STYLÉ EN BAS À DROITE */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+}
+
+.dark-mode .theme-toggle {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  color: white;
+  animation: pulse-dark 3s infinite;
+}
+
+.light-mode .theme-toggle {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+  color: white;
+  animation: pulse-light 3s infinite;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse-dark {
+  0%, 100% { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5); }
+}
+
+@keyframes pulse-light {
+  0%, 100% { box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(251, 191, 36, 0.5); }
+}
+
+/* Tooltip sur hover */
+.theme-toggle::after {
+  content: 'Changer de thème';
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-toggle:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+  
+  .theme-toggle::after {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+}
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 overflow-x-hidden dark-mode">
+    
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 w-full h-16 bg-gray-900/90 backdrop-blur-lg z-50 border-b border-gray-800">
+    <div class="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold tracking-tight">
+        <span class="gradient-text">Salaou Souleyman</span>
+      </a>
+      
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a href="index.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Accueil</a>
+        <a href="cv.html" class="menu-item px-4 py-2 text-sm font-medium text-blue-400 hover:text-blue-300">CV</a>
+        <a href="skills.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Compétences</a>
+        <a href="content.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Création</a>
+        <a href="agriculture.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Agriculture</a>
+        <a href="projects.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Projets</a>
+        <a href="contact.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Contact</a>
+      </nav>
+      
+      <!-- Menu Mobile Toggle -->
+      <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 backdrop-blur-lg border-b border-gray-800 hidden">
+      <div class="flex flex-col py-4">
+        <a href="index.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Accueil</a>
+        <a href="cv.html" class="px-6 py-3 text-blue-400 hover:text-blue-300 hover:bg-gray-800/50">CV</a>
+        <a href="skills.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Compétences</a>
+        <a href="content.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Création</a>
+        <a href="agriculture.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Agriculture</a>
+        <a href="projects.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Projets</a>
+        <a href="contact.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-20">
+    <div class="container mx-auto px-4 md:px-8">
+      <!-- Hero Section -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div class="lg:w-2/3">
+              <div class="mb-4">
+                <span class="inline-block px-4 py-1 bg-gray-800/50 backdrop-blur rounded-full text-sm text-blue-300 border border-gray-700">
+                  Curriculum Vitae Numérique
+                </span>
+              </div>
+              
+              <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                <span class="gradient-text">Salaou Souleyman</span>
+              </h1>
+              
+              <h2 class="text-2xl md:text-3xl font-semibold text-gray-300 mb-6">
+                Créateur Digital & Développeur Full-Stack
+              </h2>
+              
+              <p class="text-gray-400 text-lg mb-8 max-w-3xl">
+                Passionné par la création de solutions digitales innovantes, je combine expertise technique, créativité visuelle et vision entrepreneuriale pour transformer des idées en projets concrets et impactants.
+              </p>
+              
+              <div class="flex flex-wrap gap-4">
+                <a href="contact.html" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg font-semibold text-white hover:shadow-blue-500/30 transition-all duration-300">
+                  <i class="fas fa-envelope mr-2"></i> Me contacter
+                </a>
+                
+                <a href="#" class="px-6 py-3 border border-gray-700 rounded-lg font-medium text-gray-300 hover:text-white hover:border-blue-500 transition-all duration-300">
+                  <i class="fas fa-download mr-2"></i> Télécharger CV
+                </a>
+              </div>
+            </div>
+            
+            <div class="lg:w-1/3">
+              <div class="relative">
+                <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-gray-800 mx-auto shadow-2xl">
+                  <!-- Votre vraie photo -->
+                  <img 
+                    src="images/profil.jpg" 
+                    alt="Salaou Souleyman - Photo de profil"
+                    class="w-full h-full object-cover"
+                    onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjU2IiBoZWlnaHQ9IjI1NiIgdmlld0JveD0iMCAwIDI1NiAyNTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjI1NiIgaGVpZ2h0PSIyNTYiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMjU2IiB5Mj0iMjU2IiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agc3RvcC1jb2xvcj0iIzFiNDFhZCIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzdiMTZiNiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjx0ZXh0IHg9IjUwJSIgeT0iNDUlIiBkb21pbmFudC1iYXNlbGluZT0ibWlkZGxlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0Ij5TUzwvdGV4dD48L3N2Zz4=';this.onerror=null"
+                  >
+                </div>
+                
+                <div class="absolute -bottom-2 -right-2 w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                  <i class="fas fa-code text-white text-xl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Information Section -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-user text-blue-400"></i>
+                </div>
+                <h3 class="font-bold">Identité</h3>
+              </div>
+              <p class="text-gray-400">Salaou Souleyman Akorédé</p>
+              <p class="text-gray-500 text-sm mt-1">Né le 10 Janvier 2004</p>
+            </div>
+            
+            <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-map-marker-alt text-green-400"></i>
+                </div>
+                <h3 class="font-bold">Localisation</h3>
+              </div>
+              <p class="text-gray-400">Cotonou, Bénin</p>
+              <p class="text-gray-500 text-sm mt-1">Disponible pour missions</p>
+            </div>
+            
+            <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-envelope text-purple-400"></i>
+                </div>
+                <h3 class="font-bold">Contact</h3>
+              </div>
+              <p class="text-gray-400">salaousouleyman@gmail.com</p>
+              <p class="text-gray-500 text-sm mt-1">+229 54 80 13 85</p>
+            </div>
+            
+            <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-3">
+                <div class="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-globe text-yellow-400"></i>
+                </div>
+                <h3 class="font-bold">Statut</h3>
+              </div>
+              <p class="text-gray-400">Freelance & Entrepreneur</p>
+              <p class="text-gray-500 text-sm mt-1">Disponible immédiatement</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education & Experience -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid lg:grid-cols-2 gap-10">
+            <!-- Education -->
+            <div>
+              <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Formation</h2>
+              
+              <div class="space-y-8">
+                <div class="timeline-item">
+                  <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold">Informatique de Gestion – Analyse Programmeur</h3>
+                      <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">2023 - Présent</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">École Nationale d'Économie Appliquée et de Management (ENEAM)</p>
+                    <p class="text-gray-500 text-sm">Formation approfondie en analyse, programmation, gestion des systèmes informatiques et bases des réseaux. Acquisition de compétences en développement d'applications et gestion de bases de données.</p>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold">Baccalauréat – Série D</h3>
+                      <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">2023</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">CEG Suru-Léré, Cotonou</p>
+                    <p class="text-gray-500 text-sm">Obtention du baccalauréat scientifique avec mention. Développement d'un intérêt précoce pour les technologies et l'innovation.</p>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold">BEPC</h3>
+                      <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">2020</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">CEG Suru-Léré, Cotonou</p>
+                    <p class="text-gray-500 text-sm">Première certification académique, avec des résultats exceptionnels en mathématiques et sciences.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Experience -->
+            <div>
+              <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Expérience & Projets</h2>
+              
+              <div class="space-y-8">
+                <div class="timeline-item">
+                  <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold">AutoZone 229</h3>
+                      <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">2024</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">Plateforme web de vente de véhicules</p>
+                    <p class="text-gray-500 text-sm mb-3">Développement complet d'une plateforme SaaS avec système d'abonnement, gestion de vendeurs et intégration de paiement Mobile Money via FedaPay.</p>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded">PHP</span>
+                      <span class="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded">MySQL</span>
+                      <span class="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded">Tailwind CSS</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold">Création de Contenu Digital</h3>
+                      <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">2022 - Présent</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">Production vidéo & Animation 3D</p>
+                    <p class="text-gray-500 text-sm mb-3">Production régulière de contenus motivationnels et éducatifs sur les réseaux sociaux. Développement de mini-séries animées en 3D avec narration originale.</p>
+                    <div class="flex flex-wrap gap-2">
+                      <span class="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded">Blender</span>
+                      <span class="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded">After Effects</span>
+                      <span class="px-2 py-1 bg-gray-800 text-gray-300 text-xs rounded">Storytelling</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold">Élevage de Lapins</h3>
+                      <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">2021 - Présent</span>
+                    </div>
+                    <p class="text-gray-400 mb-3">Projet entrepreneurial agricole</p>
+                    <p class="text-gray-500 text-sm">Gestion complète d'un élevage de lapins : alimentation, reproduction, suivi sanitaire et développement de techniques d'optimisation. Acquisition de compétences en gestion et discipline.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills & Languages -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid lg:grid-cols-2 gap-10">
+            <!-- Skills -->
+            <div>
+              <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Compétences Techniques</h2>
+              
+              <div class="space-y-6">
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Développement Web</span>
+                    <span class="text-blue-400 text-sm">90%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-level" data-level="90"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Animation 3D</span>
+                    <span class="text-blue-400 text-sm">85%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-level" data-level="85"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Gestion de Projet</span>
+                    <span class="text-blue-400 text-sm">80%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-level" data-level="80"></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Création de Contenu</span>
+                    <span class="text-blue-400 text-sm">95%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div class="skill-level" data-level="95"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-8">
+                <h3 class="font-bold mb-4">Technologies maîtrisées</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded-full">HTML5/CSS3</span>
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded-full">JavaScript</span>
+                  <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm rounded-full">PHP/MySQL</span>
+                  <span class="px-3 py-1 bg-purple-500/20 text-purple-400 text-sm rounded-full">React</span>
+                  <span class="px-3 py-1 bg-purple-500/20 text-purple-400 text-sm rounded-full">Tailwind CSS</span>
+                  <span class="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full">Blender</span>
+                  <span class="px-3 py-1 bg-green-500/20 text-green-400 text-sm rounded-full">After Effects</span>
+                  <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-sm rounded-full">WordPress</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Languages -->
+            <div>
+              <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Langues</h2>
+              
+              <div class="space-y-6">
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Français</span>
+                    <span class="text-gray-400 text-sm">Langue maternelle</span>
+                  </div>
+                  <div>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Anglais</span>
+                    <span class="text-gray-400 text-sm">Intermédiaire avancé</span>
+                  </div>
+                  <div>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level inactive"></span>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Yoruba</span>
+                    <span class="text-gray-400 text-sm">Courant</span>
+                  </div>
+                  <div>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Fon Gbè</span>
+                    <span class="text-gray-400 text-sm">Courant</span>
+                  </div>
+                  <div>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                    <span class="language-level active"></span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mt-8">
+                <h3 class="font-bold mb-4">Qualités Professionnelles</h3>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full">Autodidacte</span>
+                  <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full">Créatif</span>
+                  <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full">Rigoureux</span>
+                  <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full">Persévérant</span>
+                  <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full">Adaptable</span>
+                  <span class="px-3 py-1 bg-gray-800 text-gray-300 text-sm rounded-full">Visionnaire</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications & Interests -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-10">
+            <!-- Certifications -->
+            <div>
+              <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Certifications</h2>
+              
+              <div class="space-y-4">
+                <div class="card-hover p-4 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                  <div class="flex items-center">
+                    <div class="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <i class="fas fa-certificate text-yellow-400"></i>
+                    </div>
+                    <div>
+                      <h3 class="font-bold">Développement Web Avancé</h3>
+                      <p class="text-gray-500 text-sm">Cours en ligne certifié - 2024</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="card-hover p-4 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                  <div class="flex items-center">
+                    <div class="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <i class="fas fa-certificate text-yellow-400"></i>
+                    </div>
+                    <div>
+                      <h3 class="font-bold">Animation 3D avec Blender</h3>
+                      <p class="text-gray-500 text-sm">Formation certifiée - 2023</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="card-hover p-4 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                  <div class="flex items-center">
+                    <div class="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center mr-3">
+                      <i class="fas fa-certificate text-yellow-400"></i>
+                    </div>
+                    <div>
+                      <h3 class="font-bold">Gestion de Projet Agile</h3>
+                      <p class="text-gray-500 text-sm">Certification en ligne - 2023</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Interests -->
+            <div>
+              <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Centres d'Intérêt</h2>
+              
+              <div class="grid grid-cols-2 gap-4">
+                <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                  <div class="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-laptop-code text-blue-400"></i>
+                  </div>
+                  <h3 class="font-bold">Technologie</h3>
+                  <p class="text-gray-500 text-sm mt-1">Veille technologique, nouvelles tendances</p>
+                </div>
+                
+                <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                  <div class="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-seedling text-green-400"></i>
+                  </div>
+                  <h3 class="font-bold">Agriculture</h3>
+                  <p class="text-gray-500 text-sm mt-1">Innovation agricole, techniques durables</p>
+                </div>
+                
+                <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                  <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-film text-purple-400"></i>
+                  </div>
+                  <h3 class="font-bold">Cinéma & Animation</h3>
+                  <p class="text-gray-500 text-sm mt-1">Storytelling visuel, narration créative</p>
+                </div>
+                
+                <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+                  <div class="w-12 h-12 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-lightbulb text-pink-400"></i>
+                  </div>
+                  <h3 class="font-bold">Entrepreneuriat</h3>
+                  <p class="text-gray-500 text-sm mt-1">Création d'entreprise, innovation sociale</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-gray-900/50 py-8">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="text-xl font-bold tracking-tight">
+            <span class="gradient-text">Salaou Souleyman</span>
+          </a>
+          <p class="text-gray-500 text-sm mt-2">Curriculum Vitae Numérique</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+          <a href="https://youtube.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-youtube text-xl"></i>
+          </a>
+          <a href="contact.html" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-envelope text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+        <p class="text-gray-500 text-sm">© 2025 Salaou Souleyman. Ce CV numérique est régulièrement mis à jour.</p>
+        <p class="text-gray-600 text-sm mt-1">Dernière mise à jour : Mars 2025</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle Script
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', function() {
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+    
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Animate skill bars on page load
+    window.addEventListener('load', function() {
+      const skillLevels = document.querySelectorAll('.skill-level');
+      
+      skillLevels.forEach(skill => {
+        const width = skill.getAttribute('data-level');
+        setTimeout(() => {
+          skill.style.width = width + '%';
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>

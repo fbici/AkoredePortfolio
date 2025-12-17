@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agriculture & Élevage | Salaou Souleyman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #8b5cf6;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--darker);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    /* Styles pour les modes light/dark */
+    .dark-mode {
+      background-color: var(--darker);
+      color: var(--light);
+    }
+    
+    .light-mode {
+      background-color: #f8fafc;
+      color: #1f2937;
+    }
+    
+    .light-mode .bg-gray-950 {
+      background-color: #f8fafc;
+    }
+    
+    .light-mode .bg-gray-900 {
+      background-color: #e5e7eb;
+    }
+    
+    .light-mode .bg-gray-900\/50 {
+      background-color: rgba(229, 231, 235, 0.8);
+    }
+    
+    .light-mode .text-gray-100 {
+      color: #1f2937;
+    }
+    
+    .light-mode .text-gray-300 {
+      color: #4b5563;
+    }
+    
+    .light-mode .text-gray-400 {
+      color: #6b7280;
+    }
+    
+    .light-mode .text-gray-500 {
+      color: #9ca3af;
+    }
+    
+    .light-mode .border-gray-800 {
+      border-color: #d1d5db;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .bg-grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .menu-item {
+      position: relative;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover::after {
+      width: 100%;
+    }
+    
+    .agriculture-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-agricole {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .timeline-agricole::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #10b981;
+    }
+    
+    .timeline-agricole::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 25px;
+      width: 2px;
+      height: calc(100% - 10px);
+      background: rgba(16, 185, 129, 0.3);
+    }
+    
+    .timeline-agricole:last-child::after {
+      display: none;
+    }
+    
+    .agriculture-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      height: 200px;
+      background: linear-gradient(45deg, #065f46, #047857);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .agriculture-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .agriculture-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+      .agriculture-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+      
+      .agriculture-image {
+        height: 150px;
+      }
+    }
+
+    /* TOGGLE STYLÉ EN BAS À DROITE */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+}
+
+.dark-mode .theme-toggle {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  color: white;
+  animation: pulse-dark 3s infinite;
+}
+
+.light-mode .theme-toggle {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+  color: white;
+  animation: pulse-light 3s infinite;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse-dark {
+  0%, 100% { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5); }
+}
+
+@keyframes pulse-light {
+  0%, 100% { box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(251, 191, 36, 0.5); }
+}
+
+/* Tooltip sur hover */
+.theme-toggle::after {
+  content: 'Changer de thème';
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-toggle:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+  
+  .theme-toggle::after {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+}
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 overflow-x-hidden dark-mode">
+    <!-- Theme Toggle -->
+    <div id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 w-full h-16 bg-gray-900/90 backdrop-blur-lg z-50 border-b border-gray-800">
+    <div class="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold tracking-tight">
+        <span class="gradient-text">Salaou Souleyman</span>
+      </a>
+      
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a href="index.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Accueil</a>
+        <a href="cv.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">CV</a>
+        <a href="skills.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Compétences</a>
+        <a href="content.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Création</a>
+        <a href="agriculture.html" class="menu-item px-4 py-2 text-sm font-medium text-blue-400 hover:text-blue-300">Agriculture</a>
+        <a href="projects.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Projets</a>
+        <a href="contact.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Contact</a>
+      </nav>
+      
+      <!-- Menu Mobile Toggle -->
+      <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 backdrop-blur-lg border-b border-gray-800 hidden">
+      <div class="flex flex-col py-4">
+        <a href="index.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Accueil</a>
+        <a href="cv.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">CV</a>
+        <a href="skills.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Compétences</a>
+        <a href="content.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Création</a>
+        <a href="agriculture.html" class="px-6 py-3 text-blue-400 hover:text-blue-300 hover:bg-gray-800/50">Agriculture</a>
+        <a href="projects.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Projets</a>
+        <a href="contact.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-20">
+    <div class="container mx-auto px-4 md:px-8">
+      <!-- Hero Section -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-8">
+            <span class="inline-block px-4 py-1 bg-gray-800/50 backdrop-blur rounded-full text-sm text-green-300 border border-gray-700">
+              Agriculture 4.0 & Élevage Innovant
+            </span>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">Agriculture & Élevage</span>
+          </h1>
+          
+          <p class="text-gray-400 text-lg max-w-3xl">
+            Une passion pour l'agriculture durable et l'élevage innovant, combinant techniques traditionnelles,
+            connaissances scientifiques et approche entrepreneuriale pour une production optimisée et respectueuse de l'environnement.
+          </p>
+        </div>
+      </section>
+
+      <!-- Overview Stats -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-4 gap-6 mb-12">
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="agriculture-icon bg-green-500/20 text-green-400 mx-auto">
+                <i class="fas fa-rabbit"></i>
+              </div>
+              <div class="stat-number text-green-400">50+</div>
+              <p class="text-gray-400 text-sm">Lapins élevés</p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="agriculture-icon bg-yellow-500/20 text-yellow-400 mx-auto">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="stat-number text-yellow-400">3+</div>
+              <p class="text-gray-400 text-sm">Années d'expérience</p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="agriculture-icon bg-blue-500/20 text-blue-400 mx-auto">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <div class="stat-number text-blue-400">95%</div>
+              <p class="text-gray-400 text-sm">Taux de réussite</p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 text-center">
+              <div class="agriculture-icon bg-purple-500/20 text-purple-400 mx-auto">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="stat-number text-purple-400">100%</div>
+              <p class="text-gray-400 text-sm">Durabilité</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rabbit Farming Expertise -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Expertise en Élevage de Lapins</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-clipboard-list mr-3 text-green-400"></i>
+                  Gestion Complète d'Élevage
+                </h3>
+                
+                <p class="text-gray-400 mb-6">
+                  Supervision de tous les aspects de l'élevage de lapins, de la sélection génétique
+                  à la commercialisation, en passant par les soins quotidiens et la gestion sanitaire.
+                </p>
+                
+                <div class="space-y-4">
+                  <div class="timeline-agricole">
+                    <h4 class="font-bold text-gray-300">Sélection & Reproduction</h4>
+                    <p class="text-gray-500 text-sm mt-1">Choix des reproducteurs, suivi des cycles, optimisation génétique</p>
+                  </div>
+                  
+                  <div class="timeline-agricole">
+                    <h4 class="font-bold text-gray-300">Alimentation & Nutrition</h4>
+                    <p class="text-gray-500 text-sm mt-1">Formulation de rations équilibrées, gestion des approvisionnements</p>
+                  </div>
+                  
+                  <div class="timeline-agricole">
+                    <h4 class="font-bold text-gray-300">Santé & Prévention</h4>
+                    <p class="text-gray-500 text-sm mt-1">Vaccinations, traitements préventifs, détection précoce des maladies</p>
+                  </div>
+                  
+                  <div class="timeline-agricole">
+                    <h4 class="font-bold text-gray-300">Gestion des Installations</h4>
+                    <p class="text-gray-500 text-sm mt-1">Conception des cages, ventilation, hygiène et bien-être animal</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="fade-in">
+              <div class="agriculture-image card-hover">
+                <!-- Placeholder for rabbit farming image -->
+                <div class="text-center text-white z-10 relative">
+                  <i class="fas fa-rabbit text-6xl mb-4"></i>
+                  <p class="text-xl font-bold">Élevage Responsable</p>
+                  <p class="text-sm mt-2">Bien-être animal & durabilité</p>
+                </div>
+              </div>
+              
+              <div class="mt-6">
+                <div class="card-hover p-5 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+                  <h4 class="font-bold mb-3 text-gray-300">Avantages de l'Élevage de Lapins</h4>
+                  <ul class="space-y-2 text-gray-400">
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Reproduction rapide et prolifique</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Faible besoin en espace et ressources</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Viande saine et riche en protéines</span>
+                    </li>
+                    <li class="flex items-start">
+                      <i class="fas fa-check text-green-400 mr-2 mt-1"></i>
+                      <span>Fumier de haute qualité pour l'agriculture</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Agricultural Skills -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Compétences Agricoles Développées</h2>
+          
+          <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i class="fas fa-eye text-blue-400"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Observation & Analyse</h3>
+              <p class="text-gray-400">
+                Capacité à détecter rapidement les anomalies, analyser les comportements animaux
+                et prendre des décisions éclairées basées sur l'observation quotidienne.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i class="fas fa-clock text-green-400"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Discipline & Rigueur</h3>
+              <p class="text-gray-400">
+                Respect strict des horaires de soins, des cycles biologiques et des protocoles
+                sanitaires pour assurer la santé et la productivité des animaux.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i class="fas fa-chart-line text-purple-400"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Gestion à Long Terme</h3>
+              <p class="text-gray-400">
+                Vision stratégique, planification des cycles de reproduction, optimisation
+                progressive des résultats et développement durable de l'activité.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sustainable Agriculture -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Agriculture Durable & Innovante</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="fade-in">
+              <div class="agriculture-image card-hover">
+                <!-- Placeholder for sustainable agriculture image -->
+                <div class="text-center text-white z-10 relative">
+                  <i class="fas fa-leaf text-6xl mb-4"></i>
+                  <p class="text-xl font-bold">Agriculture Durable</p>
+                  <p class="text-sm mt-2">Innovation & respect de l'environnement</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                  <i class="fas fa-recycle mr-3 text-green-400"></i>
+                  Approche Circulaire
+                </h3>
+                
+                <p class="text-gray-400 mb-6">
+                  Intégration de pratiques agricoles circulaires qui optimisent les ressources,
+                  réduisent les déchets et créent des synergies entre différentes activités.
+                </p>
+                
+                <div class="space-y-4">
+                  <div>
+                    <h4 class="font-medium text-gray-300 mb-2">Valorisation des Déchets</h4>
+                    <p class="text-gray-500 text-sm">
+                      Transformation du fumier en compost de haute qualité pour l'agriculture,
+                      création d'un écosystème agricole autosuffisant.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 class="font-medium text-gray-300 mb-2">Optimisation des Ressources</h4>
+                    <p class="text-gray-500 text-sm">
+                      Gestion efficace de l'eau, utilisation d'énergies renouvelables,
+                      réduction de l'empreinte environnementale de l'activité agricole.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 class="font-medium text-gray-300 mb-2">Innovation Technologique</h4>
+                    <p class="text-gray-500 text-sm">
+                      Intégration de solutions technologiques pour le monitoring,
+                      l'automatisation et l'optimisation des processus agricoles.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Connection with Entrepreneurship -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Lien avec l'Entrepreneuriat & le Digital</h2>
+          
+          <div class="card-hover p-8 bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur rounded-xl border border-gray-700 mb-12">
+            <div class="grid md:grid-cols-2 gap-8">
+              <div class="fade-in">
+                <h3 class="text-2xl font-bold mb-4">Compétences Transférables</h3>
+                <p class="text-gray-400 mb-6">
+                  L'expérience agricole a développé des compétences directement applicables
+                  à l'entrepreneuriat digital et à la gestion de projets technologiques.
+                </p>
+                
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 mt-1">
+                      <i class="fas fa-sync-alt text-blue-400"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-gray-300">Gestion de Processus</h4>
+                      <p class="text-gray-500 text-sm mt-1">Compréhension des cycles, planification, optimisation</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center mr-3 mt-1">
+                      <i class="fas fa-chart-bar text-green-400"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-gray-300">Analyse de Données</h4>
+                      <p class="text-gray-500 text-sm mt-1">Observation, mesure, interprétation, prise de décision</p>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start">
+                    <div class="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3 mt-1">
+                      <i class="fas fa-hands-helping text-purple-400"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-gray-300">Résilience & Patience</h4>
+                      <p class="text-gray-500 text-sm mt-1">Capacité à gérer les imprévus, persévérance à long terme</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="fade-in">
+                <h3 class="text-2xl font-bold mb-4">Agriculture 4.0</h3>
+                <p class="text-gray-400 mb-6">
+                  Application des compétences digitales au secteur agricole pour créer
+                  des solutions innovantes à l'intersection de la technologie et de l'agriculture.
+                </p>
+                
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Développement d'applications agricoles</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Systèmes de monitoring automatisés</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Plateformes de conseil agricole digital</span>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                    <span class="text-gray-300">Solutions e-commerce pour produits agricoles</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Future Projects -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Projets Agricoles Futures</h2>
+          
+          <div class="grid md:grid-cols-2 gap-6 mb-12">
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-mobile-alt text-blue-400"></i>
+                </div>
+                <h3 class="text-xl font-bold">App AgriConnect</h3>
+              </div>
+              <p class="text-gray-400 mb-4">
+                Application mobile connectant les éleveurs avec des experts vétérinaires,
+                fournissant des conseils en temps réel et un suivi digitalisé des élevages.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">Mobile</span>
+                <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">IoT</span>
+                <span class="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs rounded-full">SaaS</span>
+              </div>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                  <i class="fas fa-tractor text-green-400"></i>
+                </div>
+                <h3 class="text-xl font-bold">Ferme Intelligente</h3>
+              </div>
+              <p class="text-gray-400 mb-4">
+                Modèle de ferme intégrée combinant élevage de lapins, maraîchage biologique
+                et production d'énergie renouvelable avec monitoring digital intégré.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full">Durable</span>
+                <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs rounded-full">Autonome</span>
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs rounded-full">Tech</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto text-center">
+          <div class="card-hover p-8 bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur rounded-xl border border-gray-700">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Intéressé par l'Agriculture Innovante ?</h2>
+            <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+              Que vous soyez intéressé par des projets agricoles durables, des solutions technologiques
+              pour l'agriculture ou des collaborations intersectorielles, discutons des possibilités.
+            </p>
+            <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 rounded-lg font-semibold text-white hover:shadow-green-500/30 transition-all duration-300">
+              Échanger sur l'agriculture innovante
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-gray-900/50 py-8">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="text-xl font-bold tracking-tight">
+            <span class="gradient-text">Salaou Souleyman</span>
+          </a>
+          <p class="text-gray-500 text-sm mt-2">Agriculteur Innovant & Entrepreneur Digital</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+          <a href="contact.html" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-envelope text-xl"></i>
+          </a>
+          <a href="projects.html" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-seedling text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+        <p class="text-gray-500 text-sm">© 2025 Salaou Souleyman. Tous droits réservés.</p>
+        <p class="text-gray-600 text-sm mt-1">Agriculture durable, innovation technologique et entrepreneuriat responsable</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    
+    // Vérifier le thème sauvegardé
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', function() {
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+    
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeInOnScroll = function() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
+        }
+      });
+    };
+    
+    // Check on load and scroll
+    window.addEventListener('load', fadeInOnScroll);
+    window.addEventListener('scroll', fadeInOnScroll);
+  </script>
+</body>
+</html>

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projets | Salaou Souleyman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Mêmes styles CSS que index.html avec le theme toggle */
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #8b5cf6;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --text-light: #1f2937;
+      --text-dark: #f1f5f9;
+    }
+    
+    .light-mode {
+      background-color: #f8fafc;
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+    
+    .dark-mode {
+      background-color: var(--darker);
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+    
+    .light-mode .card {
+      background-color: var(--card-light);
+      border-color: #e2e8f0;
+      color: var(--text-light);
+    }
+    
+    .dark-mode .card {
+      background-color: var(--card-dark);
+      border-color: #334155;
+      color: var(--text-dark);
+    }
+    
+    .light-mode .gradient-text {
+      background: linear-gradient(90deg, #1d4ed8, #7c3aed);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .dark-mode .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .dark-mode .card-hover {
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .light-mode .card-hover {
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .dark-mode .card-hover:hover {
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .light-mode .card-hover:hover {
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    
+    .dark-mode .section-title::after {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    }
+    
+    .light-mode .section-title::after {
+      background: linear-gradient(90deg, #1d4ed8, #7c3aed);
+    }
+    
+    .menu-item {
+      position: relative;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      transition: width 0.3s ease;
+    }
+    
+    .dark-mode .menu-item::after {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    }
+    
+    .light-mode .menu-item::after {
+      background: linear-gradient(90deg, #1d4ed8, #7c3aed);
+    }
+    
+    .menu-item:hover::after {
+      width: 100%;
+    }
+    
+    .header-profile {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid;
+      transition: all 0.3s ease;
+    }
+    
+    .dark-mode .header-profile {
+      border-color: #3b82f6;
+    }
+    
+    .light-mode .header-profile {
+      border-color: #1d4ed8;
+    }
+    
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border: 2px solid white;
+    }
+    
+    .dark-mode .status-indicator {
+      background-color: #10b981;
+      border-color: var(--card-dark);
+    }
+    
+    .light-mode .status-indicator {
+      background-color: #10b981;
+      border-color: white;
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .project-feature {
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .project-feature::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #10b981;
+      font-weight: bold;
+    }
+    
+    .tech-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .project-status {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .status-completed {
+      background-color: rgba(34, 197, 94, 0.2);
+      color: #10b981;
+    }
+    
+    .status-in-progress {
+      background-color: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+    }
+
+    /* TOGGLE STYLÉ EN BAS À DROITE */
+.theme-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  border: none;
+  outline: none;
+}
+
+.dark-mode .theme-toggle {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+  color: white;
+  animation: pulse-dark 3s infinite;
+}
+
+.light-mode .theme-toggle {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b, #f97316);
+  color: white;
+  animation: pulse-light 3s infinite;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse-dark {
+  0%, 100% { box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5); }
+}
+
+@keyframes pulse-light {
+  0%, 100% { box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3); }
+  50% { box-shadow: 0 6px 30px rgba(251, 191, 36, 0.5); }
+}
+
+/* Tooltip sur hover */
+.theme-toggle::after {
+  content: 'Changer de thème';
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-toggle:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    font-size: 1.3rem;
+  }
+  
+  .theme-toggle::after {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+}
+  </style>
+</head>
+<body class="dark-mode">
+  <!-- Theme Toggle -->
+    <div id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 w-full h-20 z-50">
+    <div class="container mx-auto px-4 md:px-8 h-full">
+      <div class="flex items-center justify-between h-full">
+        <!-- Logo et nom -->
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <div class="header-profile">
+              <div class="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white">
+                <span class="font-bold">SS</span>
+              </div>
+            </div>
+            <div class="status-indicator"></div>
+          </div>
+          
+          <div>
+            <a href="index.html" class="text-xl font-bold tracking-tight">
+              <span class="gradient-text">Salaou Souleyman</span>
+            </a>
+            <p class="text-xs opacity-75">Portfolio de projets</p>
+          </div>
+        </div>
+        
+        <!-- Menu Desktop -->
+        <nav class="hidden md:flex items-center space-x-1">
+          <a href="index.html" class="menu-item px-4 py-2 text-sm font-medium hover:text-blue-400">Accueil</a>
+          <a href="cv.html" class="menu-item px-4 py-2 text-sm font-medium hover:text-blue-400">CV</a>
+          <a href="skills.html" class="menu-item px-4 py-2 text-sm font-medium hover:text-blue-400">Compétences</a>
+          <a href="content.html" class="menu-item px-4 py-2 text-sm font-medium hover:text-blue-400">Création</a>
+          <a href="agriculture.html" class="menu-item px-4 py-2 text-sm font-medium hover:text-blue-400">Agriculture</a>
+          <a href="projects.html" class="menu-item px-4 py-2 text-sm font-medium bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800">Projets</a>
+          <a href="contact.html" class="menu-item px-4 py-2 text-sm font-medium hover:text-blue-400">Contact</a>
+        </nav>
+        
+        <!-- Menu Mobile Toggle -->
+        <button id="menu-toggle" class="md:hidden">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="md:hidden absolute top-20 left-0 w-full bg-gray-900/95 dark:bg-gray-800/95 backdrop-blur-lg border-b border-gray-800 hidden">
+      <div class="flex flex-col py-4">
+        <a href="index.html" class="px-6 py-3 hover:bg-gray-800/50">Accueil</a>
+        <a href="cv.html" class="px-6 py-3 hover:bg-gray-800/50">CV</a>
+        <a href="skills.html" class="px-6 py-3 hover:bg-gray-800/50">Compétences</a>
+        <a href="content.html" class="px-6 py-3 hover:bg-gray-800/50">Création</a>
+        <a href="agriculture.html" class="px-6 py-3 hover:bg-gray-800/50">Agriculture</a>
+        <a href="projects.html" class="px-6 py-3 bg-blue-600 text-white hover:bg-blue-700">Projets</a>
+        <a href="contact.html" class="px-6 py-3 hover:bg-gray-800/50">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <!-- Hero Section -->
+        <section class="mb-16">
+          <div class="text-center">
+            <span class="inline-block px-4 py-1 rounded-full text-sm font-medium mb-6 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+              🚀 Réalisations Concrètes
+            </span>
+            
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+              <span class="gradient-text">Mes Projets</span>
+            </h1>
+            
+            <p class="text-xl opacity-75 max-w-3xl mx-auto">
+              Applications web complètes développées avec des technologies modernes.
+              Chaque projet représente une solution réelle à un besoin spécifique.
+            </p>
+          </div>
+        </section>
+
+        <!-- Project 1: AutoZone 229 -->
+        <section id="autozone" class="mb-20 fade-in">
+          <div class="card card-hover rounded-xl overflow-hidden">
+            <div class="md:flex">
+              <div class="md:w-1/3 bg-gradient-to-br from-blue-600 to-blue-800 p-8 flex flex-col justify-center">
+                <div class="text-center">
+                  <i class="fas fa-car text-6xl text-white mb-6"></i>
+                  <h3 class="text-2xl font-bold text-white mb-2">AutoZone 229</h3>
+                  <div class="project-status status-completed">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Projet terminé
+                  </div>
+                </div>
+                
+                <div class="mt-8">
+                  <h4 class="font-bold text-white mb-3">Technologies</h4>
+                  <div class="flex flex-wrap">
+                    <span class="tech-badge bg-blue-500/30 text-blue-300">PHP</span>
+                    <span class="tech-badge bg-green-500/30 text-green-300">MySQL</span>
+                    <span class="tech-badge bg-cyan-500/30 text-cyan-300">Tailwind CSS</span>
+                    <span class="tech-badge bg-purple-500/30 text-purple-300">FedaPay API</span>
+                    <span class="tech-badge bg-yellow-500/30 text-yellow-300">JavaScript</span>
+                    <span class="tech-badge bg-red-500/30 text-red-300">REST API</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="md:w-2/3 p-8">
+                <h2 class="text-3xl font-bold mb-6">Plateforme de Vente de Véhicules</h2>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Description du projet</h4>
+                  <p class="opacity-75">
+                    AutoZone 229 est une plateforme web complète dédiée à la vente et l'achat de véhicules au Bénin.
+                    Le système inclut un marketplace pour les particuliers et professionnels, avec des fonctionnalités
+                    avancées de gestion d'annonces, de recherche filtrée et de messagerie intégrée.
+                  </p>
+                </div>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Fonctionnalités principales</h4>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <div class="project-feature">Système d'abonnement avec limitations fonctionnelles</div>
+                    <div class="project-feature">Gestion complète CRUD des annonces</div>
+                    <div class="project-feature">Intégration FedaPay pour paiements Mobile Money</div>
+                    <div class="project-feature">Recherche avancée avec filtres multiples</div>
+                    <div class="project-feature">Système de messagerie entre vendeurs/acheteurs</div>
+                    <div class="project-feature">Dashboard admin avec statistiques</div>
+                    <div class="project-feature">Galerie photos avec upload multiple</div>
+                    <div class="project-feature">Design responsive mobile-first</div>
+                  </div>
+                </div>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Challenges relevés</h4>
+                  <ul class="list-disc pl-5 opacity-75 space-y-2">
+                    <li>Gestion sécurisée des paiements en ligne avec Mobile Money</li>
+                    <li>Optimisation des performances avec cache et indexation MySQL</li>
+                    <li>Création d'un système d'abonnement flexible avec différentes limitations</li>
+                    <li>Interface utilisateur intuitive adaptée au marché béninois</li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-4">
+                  <a href="coming-soon-live.html" class="px-6 py-2 rounded-lg font-medium bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 transition-all">
+                    <i class="fas fa-external-link-alt mr-2"></i>
+                    Voir la démo
+                  </a>
+                  <a href="coming-soon-github.html" class="px-6 py-2 rounded-lg font-medium border border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white transition-all">
+                    <i class="fab fa-github mr-2"></i>
+                    Code source
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Project 2: FarmConnect -->
+        <section id="farmconnect" class="mb-20 fade-in">
+          <div class="card card-hover rounded-xl overflow-hidden">
+            <div class="md:flex">
+              <div class="md:w-1/3 bg-gradient-to-br from-green-600 to-green-800 p-8 flex flex-col justify-center">
+                <div class="text-center">
+                  <i class="fas fa-tractor text-6xl text-white mb-6"></i>
+                  <h3 class="text-2xl font-bold text-white mb-2">FarmConnect</h3>
+                  <div class="project-status status-in-progress">
+                    <i class="fas fa-sync-alt mr-2"></i>
+                    En développement
+                  </div>
+                </div>
+                
+                <div class="mt-8">
+                  <h4 class="font-bold text-white mb-3">Technologies</h4>
+                  <div class="flex flex-wrap">
+                    <span class="tech-badge bg-blue-500/30 text-blue-300">PHP</span>
+                    <span class="tech-badge bg-green-500/30 text-green-300">MySQL</span>
+                    <span class="tech-badge bg-yellow-500/30 text-yellow-300">JavaScript</span>
+                    <span class="tech-badge bg-red-500/30 text-red-300">API REST</span>
+                    <span class="tech-badge bg-purple-500/30 text-purple-300">WebSockets</span>
+                    <span class="tech-badge bg-cyan-500/30 text-cyan-300">Bootstrap</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="md:w-2/3 p-8">
+                <h2 class="text-3xl font-bold mb-6">Plateforme Agricole Connectée</h2>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Description du projet</h4>
+                  <p class="opacity-75">
+                    FarmConnect est une solution digitale complète pour les agriculteurs béninois, combinant
+                    un marketplace de produits agricoles, un système de conseils techniques, un suivi météo
+                    localisé et des outils de gestion d'exploitation. L'application vise à moderniser
+                    l'agriculture grâce aux technologies digitales.
+                  </p>
+                </div>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Fonctionnalités principales</h4>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <div class="project-feature">Marketplace pour produits agricoles</div>
+                    <div class="project-feature">Conseils techniques personnalisés</div>
+                    <div class="project-feature">Suivi météo en temps réel</div>
+                    <div class="project-feature">Calendrier cultural intelligent</div>
+                    <div class="project-feature">Gestion des stocks et inventaire</div>
+                    <div class="project-feature">Forum communautaire agricole</div>
+                    <div class="project-feature">Notifications SMS pour alertes</div>
+                    <div class="project-feature">Tableau de bord analytique</div>
+                  </div>
+                </div>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Innovations apportées</h4>
+                  <ul class="list-disc pl-5 opacity-75 space-y-2">
+                    <li>Intégration d'API météo locale pour des prévisions précises</li>
+                    <li>Système de recommandations basé sur le type de culture et la région</li>
+                    <li>Interface adaptée aux utilisateurs peu familiarisés avec le digital</li>
+                    <li>Fonctionnalités hors ligne pour zones à faible connectivité</li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-4">
+                  <a href="coming-soon-live.html" class="px-6 py-2 rounded-lg font-medium bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800 transition-all">
+                    <i class="fas fa-external-link-alt mr-2"></i>
+                    Voir le prototype
+                  </a>
+                  <a href="coming-soon-github.html" class="px-6 py-2 rounded-lg font-medium border border-green-500 text-green-500 hover:bg-green-500 hover:text-white transition-all">
+                    <i class="fab fa-github mr-2"></i>
+                    Code source
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Project 3: CultureBenin -->
+        <section id="culturebenin" class="mb-20 fade-in">
+          <div class="card card-hover rounded-xl overflow-hidden">
+            <div class="md:flex">
+              <div class="md:w-1/3 bg-gradient-to-br from-amber-600 to-amber-800 p-8 flex flex-col justify-center">
+                <div class="text-center">
+                  <i class="fas fa-landmark text-6xl text-white mb-6"></i>
+                  <h3 class="text-2xl font-bold text-white mb-2">CultureBenin</h3>
+                  <div class="project-status status-completed">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    Projet terminé
+                  </div>
+                </div>
+                
+                <div class="mt-8">
+                  <h4 class="font-bold text-white mb-3">Technologies</h4>
+                  <div class="flex flex-wrap">
+                    <span class="tech-badge bg-red-500/30 text-red-300">Laravel</span>
+                    <span class="tech-badge bg-green-500/30 text-green-300">MySQL</span>
+                    <span class="tech-badge bg-cyan-500/30 text-cyan-300">Tailwind CSS</span>
+                    <span class="tech-badge bg-purple-500/30 text-purple-300">Alpine.js</span>
+                    <span class="tech-badge bg-blue-500/30 text-blue-300">API REST</span>
+                    <span class="tech-badge bg-pink-500/30 text-pink-300">Multimédia</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="md:w-2/3 p-8">
+                <h2 class="text-3xl font-bold mb-6">Plateforme Culturelle Béninoise</h2>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Description du projet</h4>
+                  <p class="opacity-75">
+                    CultureBenin est une plateforme numérique complète dédiée à la valorisation et la préservation
+                    du patrimoine culturel béninois. Le site rassemble des contenus éducatifs sur l'histoire,
+                    les langues, les régions, les traditions culinaires, les contes et légendes du Bénin,
+                    avec une approche moderne et accessible.
+                  </p>
+                </div>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Sections principales</h4>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <div class="project-feature">Histoire du Bénin (chronologie interactive)</div>
+                    <div class="project-feature">Répertoire des langues nationales</div>
+                    <div class="project-feature">Guide des 12 départements/régions</div>
+                    <div class="project-feature">Recettes de cuisine traditionnelle</div>
+                    <div class="project-feature">Bibliothèque de contes et légendes</div>
+                    <div class="project-feature">Galerie multimédias (photos, vidéos, audio)</div>
+                    <div class="project-feature">Événements culturels à venir</div>
+                    <div class="project-feature">Forum communautaire culturel</div>
+                  </div>
+                </div>
+                
+                <div class="mb-6">
+                  <h4 class="font-bold text-lg mb-3">Caractéristiques techniques</h4>
+                  <ul class="list-disc pl-5 opacity-75 space-y-2">
+                    <li>Architecture modulaire avec Laravel pour une maintenabilité optimale</li>
+                    <li>Système de recherche avancée avec filtres par région, langue, thème</li>
+                    <li>Gestion des médias (audio, vidéo, images) avec optimisation automatique</li>
+                    <li>Interface bilingue (Français - Anglais) avec possibilité d'extension</li>
+                    <li>Système de contribution pour experts culturels</li>
+                    <li>Cartographie interactive des régions avec Leaflet.js</li>
+                  </ul>
+                </div>
+                
+                <div class="flex flex-wrap gap-4">
+                  <a href="coming-soon-live.html" class="px-6 py-2 rounded-lg font-medium bg-gradient-to-r from-amber-600 to-amber-700 text-white hover:from-amber-700 hover:to-amber-800 transition-all">
+                    <i class="fas fa-external-link-alt mr-2"></i>
+                    Visiter le site
+                  </a>
+                  <a href="coming-soon-github.html" class="px-6 py-2 rounded-lg font-medium border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white transition-all">
+                    <i class="fab fa-github mr-2"></i>
+                    Code source
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="mb-20">
+        <!-- Project 7: Mini-Série Animée 3D -->
+            <div class="project-card card-hover fade-in" data-category="creative">
+            <div class="card p-6 h-full">
+                <!-- Project Header with Status -->
+                <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-xl font-bold">Mini-Série Animée 3D</h3>
+                    <p class="text-sm opacity-75 mt-1">Univers narratif original</p>
+                </div>
+                <span class="px-3 py-1 text-xs rounded-full bg-purple-500/20 text-purple-500 dark:bg-purple-500/30 dark:text-purple-400">
+                    En production
+                </span>
+                </div>
+                
+                <!-- Project Image/Icon -->
+                <div class="project-image mb-4 rounded-xl overflow-hidden bg-gradient-to-br from-purple-600/20 to-pink-600/20 p-6">
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 mx-auto flex items-center justify-center mb-3">
+                    <i class="fas fa-film text-2xl text-white"></i>
+                    </div>
+                    <p class="font-medium">Série Animation 3D</p>
+                    <p class="text-xs opacity-75 mt-1">Storytelling visuel</p>
+                </div>
+                </div>
+                
+                <!-- Project Description -->
+                <div class="mb-6">
+                <p class="opacity-75 text-sm mb-4">
+                    Création d'une mini-série animée en 3D avec des personnages originaux, une narration progressive 
+                    et un univers visuel cohérent. Chaque épisode explore des thèmes culturels et éducatifs 
+                    adaptés au public africain.
+                </p>
+                
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1 text-xs"></i>
+                    <span class="text-sm opacity-75">Personnages 3D modélisés et riggés</span>
+                    </div>
+                    <div class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1 text-xs"></i>
+                    <span class="text-sm opacity-75">Scénarios originaux avec message éducatif</span>
+                    </div>
+                    <div class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1 text-xs"></i>
+                    <span class="text-sm opacity-75">Sound design et voix off professionnels</span>
+                    </div>
+                </div>
+                </div>
+                
+                <!-- Technologies -->
+                <div class="mb-6">
+                <h4 class="font-medium mb-3 text-sm">Technologies & Compétences</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-orange-500/20 to-orange-600/20 text-orange-600 dark:text-orange-400">
+                    <i class="fab fa-blender mr-1"></i> Blender 3D
+                    </span>
+                    <span class="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-purple-500/20 to-purple-600/20 text-purple-600 dark:text-purple-400">
+                    <i class="fas fa-film mr-1"></i> After Effects
+                    </span>
+                    <span class="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-pink-500/20 to-pink-600/20 text-pink-600 dark:text-pink-400">
+                    <i class="fas fa-book-open mr-1"></i> Storytelling
+                    </span>
+                    <span class="px-3 py-1 text-xs rounded-full bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-600 dark:text-blue-400">
+                    <i class="fas fa-microphone mr-1"></i> Sound Design
+                    </span>
+                </div>
+                </div>
+                
+                <!-- Project Details -->
+                <div class="mb-6 p-4 rounded-lg bg-gradient-to-r from-purple-500/5 to-pink-500/5 border border-purple-500/10">
+                <h4 class="font-medium mb-2 text-sm">Éléments clés</h4>
+                <ul class="text-xs opacity-75 space-y-1">
+                    <li class="flex items-center">
+                    <i class="fas fa-circle text-[6px] mr-2 text-purple-500"></i>
+                    <span>2 personnages principaux avec backstory complète</span>
+                    </li>
+                    <li class="flex items-center">
+                    <i class="fas fa-circle text-[6px] mr-2 text-purple-500"></i>
+                    <span>5 épisodes de 3-5 minutes chacun</span>
+                    </li>
+                    <li class="flex items-center">
+                    <i class="fas fa-circle text-[6px] mr-2 text-purple-500"></i>
+                    <span>Adaptation culturelle au contexte africain</span>
+                    </li>
+                    <li class="flex items-center">
+                    <i class="fas fa-circle text-[6px] mr-2 text-purple-500"></i>
+                    <span>Contenu éducatif intégré à la narration</span>
+                    </li>
+                </ul>
+                </div>
+                
+                <!-- Progress & Links -->
+                <div class="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-800">
+                <div class="flex items-center">
+                    <div class="w-24 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 mr-3">
+                    <div class="h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: 65%"></div>
+                    </div>
+                    <span class="text-xs opacity-75">65% complété</span>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <a href="content.html#animations" class="text-purple-500 hover:text-purple-600 dark:text-purple-400 dark:hover:text-purple-300 text-sm font-medium flex items-center">
+                    <i class="fas fa-eye mr-1"></i>
+                    Extraits
+                    </a>
+                    <a href="https://www.youtube.com/channel/UChAdpFAD2a6HOsq5nx__Xpw" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 text-sm font-medium flex items-center">
+                    <i class="fas fa-play-circle mr-1"></i>
+                    Bande-annonce
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <!-- Other Projects -->
+        <section class="mb-20">
+          <h2 class="section-title text-3xl font-bold mb-8">Autres Projets & Expérimentations</h2>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="card card-hover fade-in p-6 rounded-xl">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-4">
+                <i class="fas fa-brain text-blue-500"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Contenus Motivationnels</h3>
+              <p class="opacity-75 text-sm mb-4">
+                Production de vidéos courtes sur le mindset et la productivité pour les réseaux sociaux.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 text-xs rounded bg-blue-500/10 text-blue-500">Vidéo</span>
+                <span class="px-2 py-1 text-xs rounded bg-pink-500/10 text-pink-500">Storytelling</span>
+              </div>
+            </div>
+            
+            <div class="card card-hover fade-in p-6 rounded-xl">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center mb-4">
+                <i class="fas fa-cube text-purple-500"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Animation 3D Éducative</h3>
+              <p class="opacity-75 text-sm mb-4">
+                Création de mini-séries animées pour l'éducation avec personnages 3D originaux.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 text-xs rounded bg-orange-500/10 text-orange-500">Blender</span>
+                <span class="px-2 py-1 text-xs rounded bg-purple-500/10 text-purple-500">Animation</span>
+              </div>
+            </div>
+            
+            <div class="card card-hover fade-in p-6 rounded-xl">
+              <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500/20 to-green-600/20 flex items-center justify-center mb-4">
+                <i class="fas fa-rabbit text-green-500"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Élevage de Lapins</h3>
+              <p class="opacity-75 text-sm mb-4">
+              Projet entrepreneurial agricole avec suivi digitalisé et optimisation des processus.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2 py-1 text-xs rounded bg-green-500/10 text-green-500">Agriculture</span>
+                <span class="px-2 py-1 text-xs rounded bg-yellow-500/10 text-yellow-500">Gestion</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="mb-20">
+          <div class="card rounded-xl p-8">
+            <div class="grid md:grid-cols-4 gap-6 text-center">
+              <div>
+                <div class="text-3xl font-bold text-blue-500 mb-2">3</div>
+                <div class="opacity-75">Projets majeurs</div>
+              </div>
+              
+              <div>
+                <div class="text-3xl font-bold text-green-500 mb-2">10K+</div>
+                <div class="opacity-75">Lignes de code</div>
+              </div>
+              
+              <div>
+                <div class="text-3xl font-bold text-purple-500 mb-2">5+</div>
+                <div class="opacity-75">Technologies maîtrisées</div>
+              </div>
+              
+              <div>
+                <div class="text-3xl font-bold text-amber-500 mb-2">100%</div>
+                <div class="opacity-75">Satisfaction</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section>
+          <div class="card rounded-xl p-12 text-center bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-200 dark:border-blue-800">
+            <h2 class="text-3xl font-bold mb-6">Un projet similaire en tête ?</h2>
+            <p class="text-xl opacity-75 mb-8 max-w-2xl mx-auto">
+              Que vous ayez besoin d'une plateforme web, d'une application sur mesure ou d'une solution innovante,
+              je serais ravi de discuter de votre projet.
+            </p>
+            <a href="contact.html" class="inline-block px-8 py-4 rounded-lg font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-blue-500/30">
+              <i class="fas fa-comments mr-2"></i>
+              Discuter d'un projet
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-gray-200 dark:border-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="text-2xl font-bold">
+            <span class="gradient-text">Salaou Souleyman</span>
+          </a>
+          <p class="opacity-75 text-sm mt-2">Développeur Full-Stack & Créateur Digital</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="https://github.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://youtube.com" target="_blank" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="mailto:salaousouleyman@gmail.com" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center hover:bg-green-500 hover:text-white transition-all">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center">
+        <p class="opacity-75 text-sm">© 2025 Salaou Souleyman. Tous droits réservés.</p>
+        <p class="opacity-50 text-xs mt-1">Projets réalisés avec passion et expertise technique</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+    
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', function() {
+      if (body.classList.contains('dark-mode')) {
+        body.classList.remove('dark-mode');
+        body.classList.add('light-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.classList.remove('light-mode');
+        body.classList.add('dark-mode');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+    
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Fade-in animation
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const fadeInOnScroll = function() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        if (elementTop < window.innerHeight - 100) {
+          element.classList.add('visible');
+        }
+      });
+    };
+    
+    window.addEventListener('load', fadeInOnScroll);
+    window.addEventListener('scroll', fadeInOnScroll);
+    
+    // Smooth scroll to project sections
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (this.getAttribute('href').startsWith('#')) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId !== '#') {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
+              });
+            }
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

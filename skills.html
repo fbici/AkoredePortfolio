@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compétences | Salaou Souleyman</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --secondary: #8b5cf6;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--darker);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% 100%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .card-hover {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-5px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      margin-top: 8px;
+      border-radius: 2px;
+    }
+    
+    .skill-bar {
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .skill-level {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .skill-level::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      animation: shine 2s infinite;
+    }
+    
+    @keyframes shine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .bg-grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .menu-item {
+      position: relative;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      transition: width 0.3s ease;
+    }
+    
+    .menu-item:hover::after {
+      width: 100%;
+    }
+    
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .tech-tag {
+      transition: all 0.3s ease;
+    }
+    
+    .tech-tag:hover {
+      transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+      .skill-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+    }
+
+    
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 overflow-x-hidden">
+    
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 w-full h-16 bg-gray-900/90 backdrop-blur-lg z-50 border-b border-gray-800">
+    <div class="container mx-auto px-4 md:px-8 h-full flex items-center justify-between">
+      <a href="index.html" class="text-xl font-bold tracking-tight">
+        <span class="gradient-text">Salaou Souleyman</span>
+      </a>
+      
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a href="index.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Accueil</a>
+        <a href="cv.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">CV</a>
+        <a href="skills.html" class="menu-item px-4 py-2 text-sm font-medium text-blue-400 hover:text-blue-300">Compétences</a>
+        <a href="content.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Création</a>
+        <a href="agriculture.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Agriculture</a>
+        <a href="projects.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Projets</a>
+        <a href="contact.html" class="menu-item px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">Contact</a>
+      </nav>
+      
+      <!-- Menu Mobile Toggle -->
+      <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="md:hidden absolute top-16 left-0 w-full bg-gray-900/95 backdrop-blur-lg border-b border-gray-800 hidden">
+      <div class="flex flex-col py-4">
+        <a href="index.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Accueil</a>
+        <a href="cv.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">CV</a>
+        <a href="skills.html" class="px-6 py-3 text-blue-400 hover:text-blue-300 hover:bg-gray-800/50">Compétences</a>
+        <a href="content.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Création</a>
+        <a href="agriculture.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Agriculture</a>
+        <a href="projects.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Projets</a>
+        <a href="contact.html" class="px-6 py-3 text-gray-300 hover:text-white hover:bg-gray-800/50">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20 pb-20">
+    <div class="container mx-auto px-4 md:px-8">
+      <!-- Hero Section -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="mb-8">
+            <span class="inline-block px-4 py-1 bg-gray-800/50 backdrop-blur rounded-full text-sm text-blue-300 border border-gray-700">
+              Expertise Technique & Créative
+            </span>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-bold mb-6">
+            <span class="gradient-text">Compétences Techniques</span>
+          </h1>
+          
+          <p class="text-gray-400 text-lg max-w-3xl">
+            Une palette complète de compétences techniques et créatives acquises à travers des projets concrets, 
+            une formation académique rigoureuse et un apprentissage continu.
+          </p>
+        </div>
+      </section>
+
+      <!-- Skills Overview -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="skill-icon bg-blue-500/20 text-blue-400">
+                <i class="fas fa-code"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Développement</h3>
+              <p class="text-gray-400">Création d'applications web modernes, performantes et scalables.</p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="skill-icon bg-purple-500/20 text-purple-400">
+                <i class="fas fa-film"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Animation 3D</h3>
+              <p class="text-gray-400">Production d'animations et de contenus visuels captivants.</p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="skill-icon bg-green-500/20 text-green-400">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Stratégie</h3>
+              <p class="text-gray-400">Conception de solutions innovantes et gestion de projet.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technical Skills -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Compétences Techniques Détaillées</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Frontend Skills -->
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <div class="flex items-center mb-6">
+                  <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-paint-brush text-blue-400"></i>
+                  </div>
+                  <h3 class="text-xl font-bold">Frontend & Design</h3>
+                </div>
+                
+                <div class="space-y-6">
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">HTML5 / CSS3</span>
+                      <span class="text-blue-400 text-sm">98%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 98%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">JavaScript ES6+</span>
+                      <span class="text-blue-400 text-sm">92%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 92%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">React.js</span>
+                      <span class="text-blue-400 text-sm">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Tailwind CSS</span>
+                      <span class="text-blue-400 text-sm">96%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 96%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Backend Skills -->
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <div class="flex items-center mb-6">
+                  <div class="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-server text-green-400"></i>
+                  </div>
+                  <h3 class="text-xl font-bold">Backend & Bases de données</h3>
+                </div>
+                
+                <div class="space-y-6">
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">PHP</span>
+                      <span class="text-green-400 text-sm">90%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">MySQL / PostgreSQL</span>
+                      <span class="text-green-400 text-sm">88%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 88%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Laravel</span>
+                      <span class="text-green-400 text-sm">80%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">API REST</span>
+                      <span class="text-green-400 text-sm">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 85%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Creative Skills -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Compétences Créatives</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- 3D & Animation -->
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <div class="flex items-center mb-6">
+                  <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-cube text-purple-400"></i>
+                  </div>
+                  <h3 class="text-xl font-bold">Animation 3D & Vidéo</h3>
+                </div>
+                
+                <div class="space-y-6">
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Blender 3D</span>
+                      <span class="text-purple-400 text-sm">88%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 88%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">After Effects</span>
+                      <span class="text-purple-400 text-sm">82%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 82%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Premiere Pro</span>
+                      <span class="text-purple-400 text-sm">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 85%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Storytelling Visuel</span>
+                      <span class="text-purple-400 text-sm">90%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 90%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Content Creation -->
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <div class="flex items-center mb-6">
+                  <div class="w-10 h-10 bg-pink-500/20 rounded-lg flex items-center justify-center mr-3">
+                    <i class="fas fa-video text-pink-400"></i>
+                  </div>
+                  <h3 class="text-xl font-bold">Création de Contenu</h3>
+                </div>
+                
+                <div class="space-y-6">
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Montage Vidéo</span>
+                      <span class="text-pink-400 text-sm">95%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 95%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Scriptwriting</span>
+                      <span class="text-pink-400 text-sm">90%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">Marketing Digital</span>
+                      <span class="text-pink-400 text-sm">80%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div class="flex justify-between mb-2">
+                      <span class="font-medium">SEO & Analytics</span>
+                      <span class="text-pink-400 text-sm">75%</span>
+                    </div>
+                    <div class="skill-bar">
+                      <div class="skill-level" style="width: 75%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Technologies Stack -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Stack Technologique</h2>
+          
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Programming Languages -->
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                  <i class="fas fa-code mr-3 text-blue-400"></i>
+                  Langages de Programmation
+                </h3>
+                
+                <div class="flex flex-wrap gap-3">
+                  <span class="tech-tag px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg">HTML5</span>
+                  <span class="tech-tag px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg">CSS3</span>
+                  <span class="tech-tag px-4 py-2 bg-yellow-500/20 text-yellow-400 rounded-lg">JavaScript</span>
+                  <span class="tech-tag px-4 py-2 bg-purple-500/20 text-purple-400 rounded-lg">PHP</span>
+                  <span class="tech-tag px-4 py-2 bg-green-500/20 text-green-400 rounded-lg">Python</span>
+                  <span class="tech-tag px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg">SQL</span>
+                </div>
+                
+                <p class="text-gray-500 text-sm mt-4">
+                  Maîtrise des fondamentaux et des concepts avancés de programmation avec une capacité à apprendre rapidement de nouvelles technologies.
+                </p>
+              </div>
+            </div>
+            
+            <!-- Frameworks & Tools -->
+            <div class="fade-in">
+              <div class="card-hover p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800 h-full">
+                <h3 class="text-xl font-bold mb-6 flex items-center">
+                  <i class="fas fa-tools mr-3 text-green-400"></i>
+                  Frameworks & Outils
+                </h3>
+                
+                <div class="flex flex-wrap gap-3">
+                  <span class="tech-tag px-4 py-2 bg-cyan-500/20 text-cyan-400 rounded-lg">React</span>
+                  <span class="tech-tag px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg">Tailwind CSS</span>
+                  <span class="tech-tag px-4 py-2 bg-red-500/20 text-red-400 rounded-lg">Laravel</span>
+                  <span class="tech-tag px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg">WordPress</span>
+                  <span class="tech-tag px-4 py-2 bg-gray-500/20 text-gray-400 rounded-lg">Git</span>
+                  <span class="tech-tag px-4 py-2 bg-orange-500/20 text-orange-400 rounded-lg">Figma</span>
+                </div>
+                
+                <p class="text-gray-500 text-sm mt-4">
+                  Utilisation professionnelle des frameworks modernes et outils de développement pour créer des applications efficaces et maintenables.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Soft Skills -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="section-title text-2xl md:text-3xl font-bold mb-8">Compétences Transversales</h2>
+          
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i class="fas fa-users text-blue-400"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Collaboration</h3>
+              <p class="text-gray-400">
+                Travail efficace en équipe, communication claire et capacité à intégrer différents points de vue.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i class="fas fa-lightbulb text-green-400"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Résolution de Problèmes</h3>
+              <p class="text-gray-400">
+                Approche analytique et créative pour identifier et résoudre des défis techniques complexes.
+              </p>
+            </div>
+            
+            <div class="card-hover fade-in p-6 bg-gray-900/50 backdrop-blur rounded-xl border border-gray-800">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+                <i class="fas fa-project-diagram text-purple-400"></i>
+              </div>
+              <h3 class="text-xl font-bold mb-3">Gestion de Projet</h3>
+              <p class="text-gray-400">
+                Planification, organisation et suivi de projets du concept à la livraison finale.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="py-12">
+        <div class="max-w-6xl mx-auto text-center">
+          <div class="card-hover p-8 bg-gradient-to-r from-gray-900/80 to-gray-800/80 backdrop-blur rounded-xl border border-gray-700">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Vous avez un projet en tête ?</h2>
+            <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+              Mes compétences techniques et créatives sont à votre service pour concrétiser vos idées les plus ambitieuses.
+            </p>
+            <a href="contact.html" class="inline-block px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-semibold text-white hover:shadow-blue-500/30 transition-all duration-300">
+              Discutons de votre projet
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-800 bg-gray-900/50 py-8">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="text-xl font-bold tracking-tight">
+            <span class="gradient-text">Salaou Souleyman</span>
+          </a>
+          <p class="text-gray-500 text-sm mt-2">Expert en développement web & création digitale</p>
+        </div>
+        
+        <div class="flex space-x-6">
+          <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-github text-xl"></i>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-linkedin text-xl"></i>
+          </a>
+          <a href="https://youtube.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fab fa-youtube text-xl"></i>
+          </a>
+          <a href="contact.html" class="text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-envelope text-xl"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+        <p class="text-gray-500 text-sm">© 2025 Salaou Souleyman. Tous droits réservés.</p>
+        <p class="text-gray-600 text-sm mt-1">Compétences constamment mises à jour et améliorées</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Toggle mobile menu
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      if (!mobileMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+    
+    // Fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeInOnScroll = function() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < window.innerHeight - elementVisible) {
+          element.classList.add('visible');
+        }
+      });
+    };
+    
+    // Check on load and scroll
+    window.addEventListener('load', fadeInOnScroll);
+    window.addEventListener('scroll', fadeInOnScroll);
+  </script>
+</body>
+</html>
